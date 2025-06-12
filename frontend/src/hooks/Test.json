@@ -1,0 +1,63 @@
+[
+    {
+      "product_name": "Wireless Mouse",
+      "product_category": "Electronics",
+      "price": 25.99,
+      "description": "A wireless mouse with ergonomic design and long battery life."
+    },
+    {
+      "product_name": "Bluetooth Headphones",
+      "product_category": "Electronics",
+      "price": 49.99,
+      "description": "Over-ear Bluetooth headphones with noise-cancelling feature."
+    },
+    {
+      "product_name": "Smartphone Case",
+      "product_category": "Accessories",
+      "price": 12.99,
+      "description": "A durable case to protect your smartphone from scratches and drops."
+    },
+    {
+      "product_name": "Laptop Stand",
+      "product_category": "Office Supplies",
+      "price": 19.99,
+      "description": "Adjustable laptop stand for better ergonomics and comfort."
+    },
+    {
+      "product_name": "Smart Watch",
+      "product_category": "Electronics",
+      "price": 129.99,
+      "description": "A fitness-focused smartwatch with heart rate monitoring and GPS."
+    },
+    {
+      "product_name": "LED Desk Lamp",
+      "product_category": "Home Goods",
+      "price": 34.99,
+      "description": "An energy-efficient desk lamp with adjustable brightness and color temperature."
+    },
+    {
+      "product_name": "Gaming Keyboard",
+      "product_category": "Electronics",
+      "price": 79.99,
+      "description": "A mechanical keyboard with RGB lighting and programmable keys."
+    },
+    {
+      "product_name": "Portable Charger",
+      "product_category": "Electronics",
+      "price": 29.99,
+      "description": "A compact portable charger with fast charging capabilities."
+    },
+    {
+      "product_name": "Digital Camera",
+      "product_category": "Electronics",
+      "price": 499.99,
+      "description": "A high-definition digital camera with multiple shooting modes."
+    },
+    {
+      "product_name": "Air Purifier",
+      "product_category": "Home Goods",
+      "price": 119.99,
+      "description": "An air purifier to remove allergens and pollutants from the air."
+    }
+  ]
+  

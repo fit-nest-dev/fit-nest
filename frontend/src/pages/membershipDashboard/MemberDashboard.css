@@ -1,0 +1,360 @@
+body {
+  background-color: #000000; 
+  color: #ecf0f1;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.dashboard {
+  display: flex;
+  height: 100vh;
+  background-color: #000000;
+}
+
+/* Sidebar styles */
+/* Default styles for large screens */
+.sidebar {
+  width: 250px;
+  min-width: 250px;
+  background-color: #000000;
+  color: #ecf0f1;
+  padding: 20px;
+  height: calc(100vh - 0px); /* Adjusts dynamically to screen height */
+  position: relative;
+  left: 0;
+  top: 0;
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+/* Styles for smaller screens */
+@media (max-width: 768px) {
+  .sidebar {
+    height: 100vh; /* Fixed height for smaller screens */
+    position: fixed;
+    left: 0;
+    top: 0;
+    transform: translateX(-100%); /* Hidden by default */
+  }
+
+  .sidebar.open {
+    transform: translateX(0); /* Visible when open */
+  }
+}
+
+
+.sidebar h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 10px 15px;
+  margin: 10px 0;
+  background-color: #000000;
+  border: 2px solid #1e8e2bd4;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+/* Hover effect for all buttons except logout */
+.sidebar ul li:not(.logout-btn):hover {
+  background-color: #1e8e2bd4;
+  color: #000000;
+  transform: scale(1.05);
+}
+
+/* Styling for the logout button */
+.sidebar ul .logout-btn {
+  border: 2px solid #a72323;
+  background-color: #a72323;
+}
+
+/* Hover effect for the logout button */
+.sidebar ul .logout-btn:hover {
+  background-color: #a72323;
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+/* Hamburger icon styles */
+.hamburger-icon {
+  display: none;
+  font-size: 20px;
+  color: #ffffff;
+  cursor: pointer;
+  z-index: 1100;
+
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .hamburger-icon {
+    display: block;
+
+
+  }
+}
+
+/* Prevent body from scrolling when the sidebar is open */
+body.sidebar-open {
+  overflow: auto;
+}
+
+
+.main-content {
+  flex-grow: 1;
+  padding: 30px;
+  background-color: #000000;
+}
+
+
+.main-content h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #fff;
+}
+
+.main-content section {
+  padding: 20px;
+  background-color: #000000;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+select {
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #181818;
+  color: #ffffff;
+  border-radius: 5px;
+  width: 100%;
+  border: none;
+  box-shadow: 0 4px 10px #1e8e2bd4;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.card {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  color: #ffffff;
+  padding: 20px;
+  width: calc(33.33% - 20px);
+  box-shadow: 0 6px 20px #1e8e2bd4;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px #1fae30d4;
+}
+
+.card h3 {
+  margin-bottom: 10px;
+  color: #1e8e2bd4;
+}
+
+.card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.card li {
+  margin-bottom: 5px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  z-index: 1;
+}
+
+.overlay-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+  z-index: -1;
+  object-position: left;
+}
+
+.overlay button {
+  position: absolute;
+  z-index: 2;
+  background-color: green;
+  border: none;
+  padding: 15px 25px;
+  font-size: 18px;
+  cursor: pointer;
+  color: #fff;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.overlay button:hover {
+  background-color: #1e8e2bd4;
+}
+
+.main-content {
+  position: relative;
+  padding: 20px;
+}
+
+.main-content section.membership-details {
+  color: #ffffff;
+}
+
+.main-content section.membership-details {
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 15px;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  box-shadow: 0 6px 15px #1e8e2bd4;
+}
+
+.rating-stars {
+  display: flex;
+  gap: 5px;
+}
+
+.star {
+  font-size: 2rem;
+  color: #ddd;
+  cursor: pointer;
+}
+
+.star.filled {
+  color: gold;
+}
+
+.star:hover {
+  color: #ffdd00;
+}
+
+.profile-image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  margin-bottom: 10px;
+}
+
+.upload-label {
+  cursor: pointer;
+  color: #1e8e2bd4;
+  text-decoration: underline;
+  font-size: 14px;
+}
+
+.text-black {
+  color: white;
+  max-width: 700px;
+  height: auto;
+  margin: 0 auto;
+  padding: 10px 30px;
+  background-color: #2d2d2d;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.text-black h2 {
+  color: #37e22ea4;
+}
+
+.profile-image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.profile-image {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  margin-bottom: 10px;
+}
+
+.input-group {
+  margin-bottom: 0.5rem;
+}
+
+.input-group label {
+  color: white;
+  font-size: 14px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 6px;
+  font-size: 14px;
+  color: white;
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 4px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.button-group button {
+  flex: 1;
+  padding: 8px;
+  font-size: 14px;
+  background-color: #1e8e2bd4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button-group button:hover {
+  background-color: #1e8e2bd4;
+}
+

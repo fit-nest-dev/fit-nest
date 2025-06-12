@@ -1,0 +1,43 @@
+{
+  "name": "chat-app-fs",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "server": "nodemon backend/server.js",
+    "start": "node backend/server.js",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
+    "deploy": "node server.js"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@fontsource/lora": "^5.1.0",
+    "@fontsource/montserrat": "^5.1.0",
+    "@heroicons/react": "^2.2.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.3",
+    "chat-app-fs": "file:",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.7",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "heroicons": "^2.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.5.1",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.16",
+    "pdfkit": "^0.15.1",
+    "razorpay": "^2.9.5",
+    "react-toastify": "^10.0.6",
+    "socket.io": "^4.7.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
