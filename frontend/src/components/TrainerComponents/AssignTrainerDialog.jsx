@@ -53,7 +53,7 @@ const AssignTrainerDialog = ({ open, onClose, trainers, emails }) => {
   const fetchAssignedTrainers = async (selectedTrainer) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/Trainer/GetAssignedTrainers/${selectedTrainer}`, { withCredentials: true }
+        `http://3.25.86.182:5000/api/Trainer/GetAssignedTrainers/${selectedTrainer}`, { withCredentials: true }
       );
       setAssignedTrainers(response.data.trainers_assigned || []);
     } catch (error) {
@@ -81,7 +81,7 @@ const AssignTrainerDialog = ({ open, onClose, trainers, emails }) => {
    */
   const handleApprove = async (AdminActions, trainerId, memberId, name, email, contact, startDate, endDate, extra_payment) => {
     try {
-      const response = await axios.put(`http://localhost:5000/api/Trainer/approve-trainer/${trainerId}/${memberId}`, { AdminActions, name, email, contact, startDate, endDate, extra_payment }
+      const response = await axios.put(`http://3.25.86.182:5000/api/Trainer/approve-trainer/${trainerId}/${memberId}`, { AdminActions, name, email, contact, startDate, endDate, extra_payment }
         , { withCredentials: true }
       );
       if (response.status === 200) {
@@ -109,7 +109,7 @@ const AssignTrainerDialog = ({ open, onClose, trainers, emails }) => {
   const removeTrainerRefund = async (memberId, trainerId, paymentId, amount, userName, userEmail, startDate, endDate) => {
     if (window.confirm('Are you sure you want to remove this assigment and refund the user ?')) {
       try {
-        const response = await axios.put(`http://localhost:5000/api/Trainer/remove-trainer-refund/${memberId}/${trainerId}`, {
+        const response = await axios.put(`http://3.25.86.182:5000/api/Trainer/remove-trainer-refund/${memberId}/${trainerId}`, {
           paymentId, amount
           , userEmail: userEmail,
           userName: userName,
@@ -143,7 +143,7 @@ const AssignTrainerDialog = ({ open, onClose, trainers, emails }) => {
     if (window.confirm('Are you sure you want to remove this request from user ?')) {
       try {
         await axios.put(
-          `http://localhost:5000/api/Trainer/RemoveTrainer/${memberId}/${trainerId}`, {}, { withCredentials: true }
+          `http://3.25.86.182:5000/api/Trainer/RemoveTrainer/${memberId}/${trainerId}`, {}, { withCredentials: true }
         );
         alert("Trainer removed successfully!");
         fetchAssignedTrainers(trainerId);
@@ -174,7 +174,7 @@ const AssignTrainerDialog = ({ open, onClose, trainers, emails }) => {
   const handleRequestToPay = async (AdminActions, trainerId, memberId, name, email, contact, startDate, endDate, extra_payment) => {
     if (!startDate || !endDate || !extra_payment) { return alert("Please fill all the fields") }
     try {
-      const response = await axios.put(`http://localhost:5000/api/Trainer/request-to-pay-for-user/${trainerId}/${memberId}`, { AdminActions, name, email, contact, startDate, endDate, extra_payment }
+      const response = await axios.put(`http://3.25.86.182:5000/api/Trainer/request-to-pay-for-user/${trainerId}/${memberId}`, { AdminActions, name, email, contact, startDate, endDate, extra_payment }
         , { withCredentials: true }
       );
       if (response.status === 200) {

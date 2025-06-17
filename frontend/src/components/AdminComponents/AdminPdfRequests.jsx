@@ -17,7 +17,7 @@ const AdminPdfRequests = () => {
   // Fetch all user PDF requests
   const fetchRequests = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/Admin/get-user-plan-pdf-requests", { withCredentials: true });
+      const response = await axios.get("http://3.25.86.182:5000/api/Admin/get-user-plan-pdf-requests", { withCredentials: true });
       setRequests(response.data);
     } catch (error) {
       console.error("Error fetching PDF requests:", error);
@@ -27,7 +27,7 @@ const AdminPdfRequests = () => {
   // Delete a specific request
   const deleteRequest = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/Admin/delete-user-plan-pdf-request/${id}`, { withCredentials: true });
+      await axios.delete(`http://3.25.86.182:5000/api/Admin/delete-user-plan-pdf-request/${id}`, { withCredentials: true });
       setRequests(requests.filter((req) => req._id !== id));
     } catch (error) {
       console.error("Error deleting request:", error);

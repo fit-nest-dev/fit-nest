@@ -62,7 +62,7 @@ $frontendRunning = docker ps --filter "name=fit-nest-frontend" --format "{{.Name
 if ($backendRunning -and $frontendRunning) {
     Write-Host "`n✅ Fit-Nest application is running locally!" -ForegroundColor Green
     Write-Host "Frontend URL: http://localhost:3000" -ForegroundColor Cyan
-    Write-Host "Backend API: http://localhost:5000" -ForegroundColor Cyan
+    Write-Host "Backend API: http://3.25.86.182:5000" -ForegroundColor Cyan
     
     # Open browser to the frontend
     Start-Process "http://localhost:3000"

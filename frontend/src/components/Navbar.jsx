@@ -26,7 +26,7 @@ const Navbar = () => {
   const getAllResources = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:5000/api/Admin/AllResources');
+      const response = await axios.get('http://3.25.86.182:5000/api/Admin/AllResources');
       setResources(response.data);
     } catch (err) {
       console.error(err);

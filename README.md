@@ -36,7 +36,7 @@ This project is containerized with Docker for easy development and deployment.
 
 4. Access the applications:
    - Frontend: http://localhost:3000
-   - Backend API: http://localhost:5000
+   - Backend API: http://3.25.86.182:5000
 
 ### Deployment to AWS EC2
 

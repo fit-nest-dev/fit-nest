@@ -62,7 +62,7 @@ const EditProductDialog = ({ open, onClose, product, onUpdate }) => {
     try {
       // make API call
       const response = await axios.put(
-        `http://localhost:5000/api/products/UpdateProduct/${product._id}`,
+        `http://3.25.86.182:5000/api/products/UpdateProduct/${product._id}`,
         formData, { withCredentials: true }
       );
       // if success update the product

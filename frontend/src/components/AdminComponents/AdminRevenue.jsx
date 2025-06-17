@@ -169,7 +169,7 @@ const AdminRevenue = () => {
    */
   const FetchTotalSalesFromMembership = async (startDate, endDate) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/users/SalesFromMembership/${startDate}/${endDate}`, { withCredentials: true });
+      const response = await axios.get(`http://3.25.86.182:5000/api/users/SalesFromMembership/${startDate}/${endDate}`, { withCredentials: true });
       setMembershipSales(response.data.totalSales);
     }
     catch (err) {
@@ -188,7 +188,7 @@ const AdminRevenue = () => {
   const fetchTotalSales = async (startDate, endDate) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/Order/TotalSales/${startDate}/${endDate}`, { withCredentials: true }
+        `http://3.25.86.182:5000/api/Order/TotalSales/${startDate}/${endDate}`, { withCredentials: true }
       );
       setTotalSales(response.data.totalSales);
     } catch (err) {

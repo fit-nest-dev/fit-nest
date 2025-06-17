@@ -31,7 +31,7 @@ const ManageLocations = () => {
      */
     const fetchLocations = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/Admin/about-us', { withCredentials: true }); // Update with your backend route
+        const response = await axios.get('http://3.25.86.182:5000/api/Admin/about-us', { withCredentials: true }); // Update with your backend route
         setLocations(response.data || []);
       } catch (error) {
         console.error('Error fetching locations:', error);
@@ -89,7 +89,7 @@ const ManageLocations = () => {
    */
   const saveLocations = async () => {
     try {
-      await axios.post('http://localhost:5000/api/Admin/save-locations', { locations }, { withCredentials: true });
+      await axios.post('http://3.25.86.182:5000/api/Admin/save-locations', { locations }, { withCredentials: true });
       alert('Images updated successfully for about us!');
     } catch (error) {
       console.error('Error saving locations:', error);

@@ -31,7 +31,7 @@ const Login2 = () => {
   const fetchResources = async () => {
     try {
       setLoadingResources(true)
-      const response = await axios.get("http://localhost:5000/api/Admin/AllResources")
+      const response = await axios.get("http://3.25.86.182:5000/api/Admin/AllResources")
       setResources(response.data)
     } catch (err) {
       console.log(err)
@@ -58,7 +58,7 @@ const Login2 = () => {
       return
     }
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/check-email", { email })
+      const response = await axios.post("http://3.25.86.182:5000/api/auth/check-email", { email })
       console.log(response)
       setIsAdmin(response.data.isAdmin)
       if (!response.data.exists && response.data.Status === "NOT-FOUND") {
@@ -110,7 +110,7 @@ const Login2 = () => {
       if (email) {
         setLoading(true)
         await axios.post(
-          "http://localhost:5000/api/auth/send-otp",
+          "http://3.25.86.182:5000/api/auth/send-otp",
           {
             email,
             reason: "FOR NEW USER REGISTRATION",
@@ -130,7 +130,7 @@ const Login2 = () => {
   const verifyOtp = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/auth/verify-otp",
+        "http://3.25.86.182:5000/api/auth/verify-otp",
         { email, otp },
         { withCredentials: true },
       )
@@ -159,7 +159,7 @@ const Login2 = () => {
       return
     }
     try {
-      const response = await axios.put("http://localhost:5000/api/auth/save-new-password", {
+      const response = await axios.put("http://3.25.86.182:5000/api/auth/save-new-password", {
         email,
         password: inputs.password,
       })

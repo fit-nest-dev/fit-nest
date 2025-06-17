@@ -79,7 +79,7 @@ const AdminProductListing = () => {
  */
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/products/AllProducts', { withCredentials: true });
+      const response = await axios.get('http://3.25.86.182:5000/api/products/AllProducts', { withCredentials: true });
       setProducts(response.data); // Store the products in state
       const map = {};
       response.data.forEach(product => {
@@ -133,7 +133,7 @@ const AdminProductListing = () => {
         // Collect promises for each product addition
         addProductPromises.push(
           axios.post(
-            'http://localhost:5000/api/products/AddProduct',
+            'http://3.25.86.182:5000/api/products/AddProduct',
             { product_name, product_category, price, description,MRP, image_url, stock_quantity },
             { withCredentials: true }
           )
@@ -167,7 +167,7 @@ const AdminProductListing = () => {
  */
   const handleDeleteProduct = (id) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
-      axios.delete(`http://localhost:5000/api/products/deleteProduct/${id}`, { withCredentials: true })
+      axios.delete(`http://3.25.86.182:5000/api/products/deleteProduct/${id}`, { withCredentials: true })
         .then(response => {
           if (response.data.message === 'Product deleted successfully') {
             setProducts(prevProducts => prevProducts.filter(product => product._id !== id));
@@ -195,7 +195,7 @@ const AdminProductListing = () => {
   const handleIncrementProduct = async (id) => {
     if (window.confirm('Are you sure you want to increment the stock of this product?')) {
       try {
-        const response = await axios.put(`http://localhost:5000/api/products/incrementProduct/${id}`, {}, { withCredentials: true });
+        const response = await axios.put(`http://3.25.86.182:5000/api/products/incrementProduct/${id}`, {}, { withCredentials: true });
         if (response.data.message === 'Product stock updated') {
           setProducts(prevProducts => prevProducts.map(product => {
             if (product._id === response.data.updatedProduct._id) {
@@ -222,7 +222,7 @@ const AdminProductListing = () => {
   const handleDecrementProduct = async (id) => {
     if (window.confirm('Are you sure you want to decrement the stock of this product?')) {
       try {
-        const response = await axios.put(`http://localhost:5000/api/products/decrementProduct/${id}`, {}, { withCredentials: true });
+        const response = await axios.put(`http://3.25.86.182:5000/api/products/decrementProduct/${id}`, {}, { withCredentials: true });
         if (response.data.message === 'Product stock updated') {
           setProducts(prevProducts => prevProducts.map(product => {
             if (product._id === response.data.updatedProduct._id) {
@@ -257,7 +257,7 @@ const AdminProductListing = () => {
    */
   const handleAddProductManual = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/products/AddProduct', productData, { withCredentials: true });
+      const response = await axios.post('http://3.25.86.182:5000/api/products/AddProduct', productData, { withCredentials: true });
       if (response.data) {
         fetchProducts(); // Refresh the product list
       }

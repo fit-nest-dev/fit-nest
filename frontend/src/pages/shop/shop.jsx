@@ -50,7 +50,7 @@ const Home = () => {
   const handleRemoveFromCart = async (productId) => {
     try {
       const response = await axios.delete(
-        `http://localhost:5000/api/Cart/DeleteFromCart/${Authuser._id}/${productId}`,
+        `http://3.25.86.182:5000/api/Cart/DeleteFromCart/${Authuser._id}/${productId}`,
         { withCredentials: true },
       )
       if (response.data.message === "Product deleted from cart successfully") {
@@ -91,7 +91,7 @@ const Home = () => {
         // Add the product `count` times to the cart
         for (let i = 0; i < count; i++) {
           const response = await axios.put(
-            `http://localhost:5000/api/Cart/AddToCart-from-local-storage/${AuthUserId}/${productId}`,
+            `http://3.25.86.182:5000/api/Cart/AddToCart-from-local-storage/${AuthUserId}/${productId}`,
             {},
             { withCredentials: true },
           )
@@ -111,7 +111,7 @@ const Home = () => {
   const fetchProducts = async () => {
     try {
       setloading(true)
-      const response = await axios.get("http://localhost:5000/api/products/AllProducts", { withCredentials: true })
+      const response = await axios.get("http://3.25.86.182:5000/api/products/AllProducts", { withCredentials: true })
       setProducts(response.data) // Store the products in state
       const map = {}
       response.data.forEach((product) => {
@@ -133,7 +133,7 @@ const Home = () => {
     }
     try {
       setLoadingCart(true)
-      const response = await axios.get(`http://localhost:5000/api/Cart/GetCarts/${id}`, { withCredentials: true })
+      const response = await axios.get(`http://3.25.86.182:5000/api/Cart/GetCarts/${id}`, { withCredentials: true })
       setCartItems(response.data)
     } catch (error) {
       console.error("Error fetching user:", error)
@@ -171,7 +171,7 @@ const Home = () => {
           // Send the existing cart item to the API
           const cartItem = localCart[existingProductIndex]
           const response = await axios.put(
-            `http://localhost:5000/api/products/decrementProduct-guest/${product._id}`,
+            `http://3.25.86.182:5000/api/products/decrementProduct-guest/${product._id}`,
             { cartItem },
             { withCredentials: true },
           )
@@ -185,7 +185,7 @@ const Home = () => {
             cart: { product: product._id, count: 0 },
           }
           const response = await axios.put(
-            `http://localhost:5000/api/products/decrementProduct-guest/${product._id}`,
+            `http://3.25.86.182:5000/api/products/decrementProduct-guest/${product._id}`,
             { cartItem: newCartItem },
             { withCredentials: true },
           )
@@ -207,7 +207,7 @@ const Home = () => {
     }
 
     try {
-      const response = await axios.put(`http://localhost:5000/api/Cart/AddToCart/${Authuser._id}/${product._id}`, {})
+      const response = await axios.put(`http://3.25.86.182:5000/api/Cart/AddToCart/${Authuser._id}/${product._id}`, {})
       if (response.data.message === "Product added to cart successfully") {
         toast.success("Product added to cart successfully")
         const { cartItem } = response.data

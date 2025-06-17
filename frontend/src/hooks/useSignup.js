@@ -26,7 +26,7 @@ const useSignup = () => {
 
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/auth/signup', {
+      const res = await fetch('http://3.25.86.182:5000/api/auth/signup', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ firstName, lastName, mobileNumber, email, password }),
@@ -64,7 +64,7 @@ const signupAfterPayment = async ({ firstName, lastName, mobileNumber, email, pa
 
   setLoading(true);
   try {
-  const response=await axios.post(`http://localhost:5000/api/auth/signup-after-pay-for-new-membership`,{
+  const response=await axios.post(`http://3.25.86.182:5000/api/auth/signup-after-pay-for-new-membership`,{
     firstName, lastName, mobileNumber, email, password,type,address
   });
   if(response.data.message==='SUCCESS'){

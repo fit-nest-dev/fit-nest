@@ -156,7 +156,7 @@ const RateTrainerDialog = () => {
  */
     const fetchTrainers = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/Trainer/AllTrainers", { withCredentials: true });
+        const response = await axios.get("http://3.25.86.182:5000/api/Trainer/AllTrainers", { withCredentials: true });
         setTrainers(response.data);
       } catch (error) {
         toast.error("Unable to fetch trainer information.");
@@ -186,7 +186,7 @@ const RateTrainerDialog = () => {
       }
 
       await axios.put(
-        `http://localhost:5000/api/Trainer/rate/${selectedTrainer}/${Authuser._id}`,
+        `http://3.25.86.182:5000/api/Trainer/rate/${selectedTrainer}/${Authuser._id}`,
         { rating },
         { withCredentials: true }
       );

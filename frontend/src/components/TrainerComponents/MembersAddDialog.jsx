@@ -54,7 +54,7 @@ const MembersAddDialog = ({ openDialog, setOpenDialog }) => {
       for (let i = 0; i < excelData.length; i++) {
         const product = excelData[i];
         const { first_name, last_name, email, mobile_number, Membership_Type, membership_id, start_date, end_date } = product;
-        const response = await axios.post('http://localhost:5000/api/Admin/Create-Member', {
+        const response = await axios.post('http://3.25.86.182:5000/api/Admin/Create-Member', {
           first_name,
           last_name,
           email,
@@ -113,7 +113,7 @@ const MembersAddDialog = ({ openDialog, setOpenDialog }) => {
    */
   const handleAddMembersManual = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/Admin/Create-Member', MembersData, { withCredentials: true });
+      const response = await axios.post('http://3.25.86.182:5000/api/Admin/Create-Member', MembersData, { withCredentials: true });
       if (response.data) {
         setOpenDialog(false);
       }

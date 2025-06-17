@@ -30,7 +30,7 @@ const Home1 = () => {
           // Send the existing cart item to the API
           const cartItem = localCart[existingProductIndex]
           const response = await axios.put(
-            `http://localhost:5000/api/products/decrementProduct-guest/${product._id}`,
+            `http://3.25.86.182:5000/api/products/decrementProduct-guest/${product._id}`,
             { cartItem },
             { withCredentials: true },
           )
@@ -44,7 +44,7 @@ const Home1 = () => {
             cart: { product: product._id, count: 0 },
           }
           const response = await axios.put(
-            `http://localhost:5000/api/products/decrementProduct-guest/${product._id}`,
+            `http://3.25.86.182:5000/api/products/decrementProduct-guest/${product._id}`,
             { cartItem: newCartItem },
             { withCredentials: true },
           )
@@ -66,7 +66,7 @@ const Home1 = () => {
     }
 
     try {
-      const response = await axios.put(`http://localhost:5000/api/Cart/AddToCart/${Authuser._id}/${product._id}`, {})
+      const response = await axios.put(`http://3.25.86.182:5000/api/Cart/AddToCart/${Authuser._id}/${product._id}`, {})
       if (response.data.message === "Product added to cart successfully") {
         toast.success("Product added to cart successfully")
         const { cartItem } = response.data
@@ -101,7 +101,7 @@ const Home1 = () => {
   const getAllResources = async () => {
     try {
       setLoading(true)
-      const response = await axios.get(`http://localhost:5000/api/Admin/AllResources`)
+      const response = await axios.get(`http://3.25.86.182:5000/api/Admin/AllResources`)
       setResources(response.data)
     } catch (err) {
       console.log(err)

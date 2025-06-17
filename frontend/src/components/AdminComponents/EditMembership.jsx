@@ -79,7 +79,7 @@ const EditMembership = ({ openDialog, setOpenDialog, plan, setPlans, plans }) =>
   const handlePlanEdit = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/Admin/UpdateMembershipPlan/${plan._id}`,
+        `http://3.25.86.182:5000/api/Admin/UpdateMembershipPlan/${plan._id}`,
         handlePlanData, { withCredentials: true }
       );
       setPlans((prevPlans) =>

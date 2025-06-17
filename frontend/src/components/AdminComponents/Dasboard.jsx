@@ -26,7 +26,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/products/AllProducts', { withCredentials: true });
+      const response = await axios.get('http://3.25.86.182:5000/api/products/AllProducts', { withCredentials: true });
       const map = {};
       response.data.forEach(product => {
         map[product._id] = product;
@@ -50,7 +50,7 @@ const Dashboard = () => {
   const fetchTotalSales = async (startDate, endDate, type) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/Order/TotalSales/${startDate}/${endDate}`, { withCredentials: true }
+        `http://3.25.86.182:5000/api/Order/TotalSales/${startDate}/${endDate}`, { withCredentials: true }
       );
       if (type === 'monthly') {
         setCurrentMonthSales(response.data.totalSales);
@@ -73,7 +73,7 @@ const Dashboard = () => {
    */
   const fetchInactiveMembers = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/users/inactive-members', { withCredentials: true });
+      const response = await axios.get('http://3.25.86.182:5000/api/users/inactive-members', { withCredentials: true });
       setInactiveMembers(response.data);
     }
     catch (err) {
@@ -92,7 +92,7 @@ const Dashboard = () => {
    */
   const fetchSalesByProduct = async (startDate, endDate) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/Admin/getSalesDataByProduct/${startDate}/${endDate}`
+      const response = await axios.get(`http://3.25.86.182:5000/api/Admin/getSalesDataByProduct/${startDate}/${endDate}`
         , { withCredentials: true }
       );
       setSalesByProduct(response.data);

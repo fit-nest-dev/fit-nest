@@ -32,7 +32,7 @@ const ManageHomeMedia = () => {
      */
     const fetchMedia = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/Admin/home-media", {
+        const response = await axios.get("http://3.25.86.182:5000/api/Admin/home-media", {
           withCredentials: true,
         });
         const { homeLogo, homePageVideo, customMedia } = response.data;
@@ -64,7 +64,7 @@ const ManageHomeMedia = () => {
   // Save changes for HOME_LOGO and HOME_PAGE_VIDEO
   const handleSaveHomeMedia = async () => {
     try {
-      const response = await axios.put("http://localhost:5000/api/Admin/put-home-media", {
+      const response = await axios.put("http://3.25.86.182:5000/api/Admin/put-home-media", {
         homeLogo,
         homePageVideo,
       }, {
@@ -84,7 +84,7 @@ const ManageHomeMedia = () => {
       return;
     }
     try {
-      const response = await axios.post("http://localhost:5000/api/Admin/custom-media", newMedia, {
+      const response = await axios.post("http://3.25.86.182:5000/api/Admin/custom-media", newMedia, {
         withCredentials: true,
       });
       setCustomMedia([...customMedia, newMedia]);

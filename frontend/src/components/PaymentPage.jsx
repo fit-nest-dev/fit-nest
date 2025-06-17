@@ -42,7 +42,7 @@ const PaymentPage = () => {
   const fetchProducts = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/products/AllProducts",
+        "http://3.25.86.182:5000/api/products/AllProducts",
         { withCredentials: true }
       );
       const map = {};
@@ -61,7 +61,7 @@ const PaymentPage = () => {
     }
     else {
       try {
-        const response = await axios.get(`http://localhost:5000/api/Cart/GetCarts/${id}`, { withCredentials: true });
+        const response = await axios.get(`http://3.25.86.182:5000/api/Cart/GetCarts/${id}`, { withCredentials: true });
         setCartItems(response.data);
       }
       catch (error) {
@@ -114,7 +114,7 @@ const PaymentPage = () => {
   //   try {
   //     selectedProducts.forEach(async (product) => {
   //       const response = await axios.delete(
-  //         `http://localhost:5000/api/Cart/DeleteFromCartAfterOrder/${Authuser._id}/${product.productId}`
+  //         `http://3.25.86.182:5000/api/Cart/DeleteFromCartAfterOrder/${Authuser._id}/${product.productId}`
   //         ,{withCredentials:true}
   //       );
   //       if (response.data.message === "Product deleted from cart successfully") {
@@ -129,7 +129,7 @@ const PaymentPage = () => {
       try {
         for (const product of selectedProducts) {
           const response = await axios.put(
-            `http://localhost:5000/api/Cart/DeleteFromCartAfterOrder-guest/${product.productId}`
+            `http://3.25.86.182:5000/api/Cart/DeleteFromCartAfterOrder-guest/${product.productId}`
             , { count: product.count }
             , { withCredentials: true }
           );
@@ -146,7 +146,7 @@ const PaymentPage = () => {
         // Remove items from the authenticated user's cart
         for (const product of selectedProducts) {
           const response = await axios.delete(
-            `http://localhost:5000/api/Cart/DeleteFromCartAfterOrder/${Authuser._id}/${product.productId}`,
+            `http://3.25.86.182:5000/api/Cart/DeleteFromCartAfterOrder/${Authuser._id}/${product.productId}`,
             { withCredentials: true }
           );
           if (response.data.message !== "Product deleted from cart successfully") {
@@ -162,7 +162,7 @@ const PaymentPage = () => {
     if (!Authuser) {
       try {
         for (const product of selectedProducts) {
-          const response = await axios.put(`http://localhost:5000/api/Cart/lockProductDuringPay-guest/${product.productId}`,
+          const response = await axios.put(`http://3.25.86.182:5000/api/Cart/lockProductDuringPay-guest/${product.productId}`,
             { count: product.count },
             { withCredentials: true });
           if (response.data.message !== "Product locked successfully") {
@@ -176,7 +176,7 @@ const PaymentPage = () => {
     }
     try {
       for (const product of selectedProducts) {
-        const response = await axios.put(`http://localhost:5000/api/Cart/lockProductDuringPay/${product.productId}/${Authuser._id}`, {}, { withCredentials: true });
+        const response = await axios.put(`http://3.25.86.182:5000/api/Cart/lockProductDuringPay/${product.productId}/${Authuser._id}`, {}, { withCredentials: true });
         if (response.data.message !== "Product locked successfully") {
           throw new Error("Failed to lock product");
         }
@@ -190,7 +190,7 @@ const PaymentPage = () => {
     if (!Authuser) {
       try {
         for (const product of selectedProducts) {
-          const response = await axios.put(`http://localhost:5000/api/Cart/releaseLockDueToPayFailure-guest/${product.productId}`,
+          const response = await axios.put(`http://3.25.86.182:5000/api/Cart/releaseLockDueToPayFailure-guest/${product.productId}`,
             { count: product.count },
             { withCredentials: true });
           if (response.data.message !== "Product unlocked successfully") {
@@ -204,7 +204,7 @@ const PaymentPage = () => {
     }
     try {
       for (const product of selectedProducts) {
-        const response = await axios.put(`http://localhost:5000/api/Cart/releaseLockDueToPayFailure/${product.productId}/${Authuser._id}`, {}, { withCredentials: true });
+        const response = await axios.put(`http://3.25.86.182:5000/api/Cart/releaseLockDueToPayFailure/${product.productId}/${Authuser._id}`, {}, { withCredentials: true });
         if (response.data.message !== "Product unlocked successfully") {
           throw new Error("Failed to unlock product");
         }
@@ -232,8 +232,8 @@ const PaymentPage = () => {
     }
     try {
       const orderResponse = await axios.post(
-        Authuser ? "http://localhost:5000/api/Payment/create-order-multiple"
-          : "http://localhost:5000/api/Payment/create-order-multiple-guest",
+        Authuser ? "http://3.25.86.182:5000/api/Payment/create-order-multiple"
+          : "http://3.25.86.182:5000/api/Payment/create-order-multiple-guest",
         {
           userId: !Authuser ? 'GUEST_USER' : Authuser._id,
           products: selectedProducts,
@@ -256,8 +256,8 @@ const PaymentPage = () => {
           try {
             fetchProducts();
             const verificationResponse = await axios.post(
-              Authuser ? "http://localhost:5000/api/Payment/verify-payment-for-multiple" :
-                "http://localhost:5000/api/Payment/verify-payment-for-multiple-guest",
+              Authuser ? "http://3.25.86.182:5000/api/Payment/verify-payment-for-multiple" :
+                "http://3.25.86.182:5000/api/Payment/verify-payment-for-multiple-guest",
               {
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_order_id: response.razorpay_order_id,

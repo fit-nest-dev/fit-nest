@@ -37,7 +37,7 @@ const useLogin = () => {
   
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/auth/login', {
+      const res = await fetch('http://3.25.86.182:5000/api/auth/login', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }) // Sending email and password
@@ -70,7 +70,7 @@ const useLogin = () => {
   
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/auth/login-admin', {
+      const res = await fetch('http://3.25.86.182:5000/api/auth/login-admin', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }) ,// Sending email and password,

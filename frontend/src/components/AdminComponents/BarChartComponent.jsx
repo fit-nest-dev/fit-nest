@@ -63,7 +63,7 @@ const BarChartComponent = ({ type }) => {
         startDate.setDate(endDate.getDate() - 6); // Start date for the week
 
         const response = await axios.get(
-          `http://localhost:5000/api/Order/TotalSales/${startDate.toISOString()}/${endDate.toISOString()}`, { withCredentials: true }
+          `http://3.25.86.182:5000/api/Order/TotalSales/${startDate.toISOString()}/${endDate.toISOString()}`, { withCredentials: true }
         );
 
         weeklyData.push(
@@ -89,7 +89,7 @@ const BarChartComponent = ({ type }) => {
         const endDate = new Date(currentYear, month + 1, 0); // End of the month
 
         const response = await axios.get(
-          `http://localhost:5000/api/Order/TotalSales/${startDate.toISOString()}/${endDate.toISOString()}`, { withCredentials: true }
+          `http://3.25.86.182:5000/api/Order/TotalSales/${startDate.toISOString()}/${endDate.toISOString()}`, { withCredentials: true }
         );
 
         monthlyData.push(

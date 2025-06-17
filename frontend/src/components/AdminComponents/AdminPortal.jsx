@@ -69,7 +69,7 @@ const AdminPortal = () => {
    */
   const fetchEmails = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/users/get-all-emails", { withCredentials: true });
+      const response = await axios.get("http://3.25.86.182:5000/api/users/get-all-emails", { withCredentials: true });
       setEmails(response.data);
     } catch (error) {
       console.error("Error fetching emails:", error);
@@ -88,7 +88,7 @@ const AdminPortal = () => {
 
   const fetchTrainerEmails = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/Trainer/AllMails", { withCredentials: true });
+      const response = await axios.get("http://3.25.86.182:5000/api/Trainer/AllMails", { withCredentials: true });
       setTrainerEmails(response.data);
     } catch (error) {
       console.error("Error fetching emails:", error);
@@ -118,7 +118,7 @@ const AdminPortal = () => {
    */
   const fetchProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/products/AllProducts", { withCredentials: true });
+      const response = await axios.get("http://3.25.86.182:5000/api/products/AllProducts", { withCredentials: true });
       setProducts(response.data);
       const map = {};
       response.data.forEach((product) => {
@@ -141,7 +141,7 @@ const AdminPortal = () => {
    */
   const fetchMembershipDetails = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/users/MemberShipDetails", { withCredentials: true });
+      const response = await axios.get("http://3.25.86.182:5000/api/users/MemberShipDetails", { withCredentials: true });
       setMemeberShipData(response.data);
     } catch (error) {
       console.log(error);

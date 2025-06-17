@@ -25,7 +25,7 @@ const AdminFeedbackView = () => {
 
   const fetchFeedbacks = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/users/all-feedbacks", { withCredentials: true });
+      const response = await axios.get("http://3.25.86.182:5000/api/users/all-feedbacks", { withCredentials: true });
       if (response.status === 200) {
         setFeedbacks(response.data.data);
       }

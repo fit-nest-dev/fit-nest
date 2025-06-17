@@ -61,7 +61,7 @@ const CartDialog = ({ open, handleClose, cartItems, setcartItems, handleRemoveFr
    */
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/products/AllProducts', { withCredentials: true });
+      const response = await axios.get('http://3.25.86.182:5000/api/products/AllProducts', { withCredentials: true });
       const map = {};
       response.data.forEach(product => {
         map[product._id] = product;
@@ -77,7 +77,7 @@ const CartDialog = ({ open, handleClose, cartItems, setcartItems, handleRemoveFr
   const handleIncrement = async (product) => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/Cart/AddToCart/${Authuser._id}/${product.cart.product}`, {}, { withCredentials: true }
+        `http://3.25.86.182:5000/api/Cart/AddToCart/${Authuser._id}/${product.cart.product}`, {}, { withCredentials: true }
       );
       if (response.data.message === "Product added to cart successfully") {
         setcartItems((prev) =>
@@ -91,7 +91,7 @@ const CartDialog = ({ open, handleClose, cartItems, setcartItems, handleRemoveFr
   const handleDecrement = async (product) => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/Cart/DecrementCart/${Authuser._id}/${product.cart.product}`
+        `http://3.25.86.182:5000/api/Cart/DecrementCart/${Authuser._id}/${product.cart.product}`
         , {}, { withCredentials: true }
       );
       if (response.data.message === "Product deleted from cart successfully") {

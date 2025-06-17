@@ -38,7 +38,7 @@ const OrderDialogAdmin = ({ open, onClose }) => {
    * Used in the useEffect hook to fetch the orders when the component mounts and when the dialog is opened.
    */
   const fetchUserOrders = async () => {
-    const response = await axios.post(`http://localhost:5000/api/Order/AllOrders`, {}, { withCredentials: true });
+    const response = await axios.post(`http://3.25.86.182:5000/api/Order/AllOrders`, {}, { withCredentials: true });
     setOrders(response.data.orders);
   };
 
@@ -82,7 +82,7 @@ const OrderDialogAdmin = ({ open, onClose }) => {
   const handleSubmitDate = (orderId) => {
     if (newDeliveryDate === null) return;
     if (window.confirm('Are you sure you want to update the delivery date of this order?')) {
-      axios.put(`http://localhost:5000/api/Order/EditDeliveryTime/${orderId}`, { deliveryDate: newDeliveryDate, userName: selectedOrder.UserName, email: selectedOrder.UserEmail }
+      axios.put(`http://3.25.86.182:5000/api/Order/EditDeliveryTime/${orderId}`, { deliveryDate: newDeliveryDate, userName: selectedOrder.UserName, email: selectedOrder.UserEmail }
         , { withCredentials: true }
       )
         .then((response) => {
@@ -130,7 +130,7 @@ const OrderDialogAdmin = ({ open, onClose }) => {
     if (newStatus === "Delivered" || newStatus === "CANCELLED") return;
     if (window.confirm('Are you sure you want to update the status of this order?')) {
       axios
-        .put(`http://localhost:5000/api/Order/EditStatus/${orderId}`, { status: newStatus, userName: selectedOrder.UserName, email: selectedOrder.UserEmail }, { withCredentials: true })
+        .put(`http://3.25.86.182:5000/api/Order/EditStatus/${orderId}`, { status: newStatus, userName: selectedOrder.UserName, email: selectedOrder.UserEmail }, { withCredentials: true })
         .then((response) => {
           alert('Order status updated successfully!');
           setOrders(orders.map((order) =>

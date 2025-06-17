@@ -76,7 +76,7 @@ const EditMemberDialog = ({ fetchMembershipDetails, user, openEdit, setOpenEdit 
   const handleEditSubmission = async () => {
     if (window.confirm('Are you sure you want to edit this member?')) {
       try {
-        const response = await axios.put(`http://localhost:5000/api/users/edit-user/${user?._id}`, MemberEditData, { withCredentials: true });
+        const response = await axios.put(`http://3.25.86.182:5000/api/users/edit-user/${user?._id}`, MemberEditData, { withCredentials: true });
         fetchMembershipDetails(); // Fetch updated details after edit
         // Clear the form after submission (optional)
         setMemberEditData({

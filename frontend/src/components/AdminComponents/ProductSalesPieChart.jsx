@@ -56,7 +56,7 @@ const ProductSalesPieChart = ({ startDate, endDate }) => {
      */
     const fetchMostandLeastBoughtProducts = async (startDate, endDate) => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/Order/Most-least-products/${startDate}/${endDate}`, { withCredentials: true });
+        const response = await axios.get(`http://3.25.86.182:5000/api/Order/Most-least-products/${startDate}/${endDate}`, { withCredentials: true });
         setProductSort(response.data);
       }
       catch (err) {
@@ -78,7 +78,7 @@ const ProductSalesPieChart = ({ startDate, endDate }) => {
     const fetchData = async (startDate, endDate) => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/Order/products-buy-counts/${startDate}/${endDate}`, { withCredentials: true }
+          `http://3.25.86.182:5000/api/Order/products-buy-counts/${startDate}/${endDate}`, { withCredentials: true }
         );
         setProductSalesData(response.data);
 

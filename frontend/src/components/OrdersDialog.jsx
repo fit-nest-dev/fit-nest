@@ -33,13 +33,13 @@ const OrdersDialog = ({ open, onClose, userId }) => {
    * @returns {Promise<Array>} A promise that resolves to an array of orders.
    */
   const fetchUserOrders = async (userId) => {
-    const response = await axios.post(`http://localhost:5000/api/Order/GetAllOrders/${userId}`, {}, { withCredentials: true });
+    const response = await axios.post(`http://3.25.86.182:5000/api/Order/GetAllOrders/${userId}`, {}, { withCredentials: true });
     return response.data;
   };
   const handleCancelOrder = async (orderId) => {
     if (window.confirm('Are you sure you want to cancel this order?')) {
       try {
-        const response = await axios.put(`http://localhost:5000/api/Order/CancelOrder/${orderId}`, {}, { withCredentials: true });
+        const response = await axios.put(`http://3.25.86.182:5000/api/Order/CancelOrder/${orderId}`, {}, { withCredentials: true });
         if (response.data.message) {
           setOrders((prevOrders) =>
             prevOrders.filter((order) => order.orderId !== orderId)
@@ -63,7 +63,7 @@ const OrdersDialog = ({ open, onClose, userId }) => {
    */
   const handleAddressUpdate = async (orderId) => {
     try {
-      const response = await axios.put(`http://localhost:5000/api/Order/UpdateOrderAddress/${orderId}`, {
+      const response = await axios.put(`http://3.25.86.182:5000/api/Order/UpdateOrderAddress/${orderId}`, {
         address: updatedAddress,
       }, { withCredentials: true });
       if (response.data.message) {

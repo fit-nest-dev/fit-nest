@@ -35,7 +35,7 @@ export const SocketContext = createContext();
  */
 export const SocketProvider = ({ children }) => {
   const {Authuser}=useAuthContext();
-  const socket = io('http://localhost:5000/',{
+  const socket = io('http://3.25.86.182:5000/',{
     query:{Authuser:Authuser?._id || null},
  
   });

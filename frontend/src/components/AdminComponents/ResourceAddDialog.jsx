@@ -50,7 +50,7 @@ const ResourceAddDialog = ({ open, onClose, setResources, fetchResources, resour
     if (window.confirm('Are you sure you want to add this resource?')) {
       setLoading(true); // Show loading indicator
       try {
-        const response = await axios.post(`http://localhost:5000/api/Admin/AddNewResource`, resource, { withCredentials: true });
+        const response = await axios.post(`http://3.25.86.182:5000/api/Admin/AddNewResource`, resource, { withCredentials: true });
         console.log(response);
         if (response.status === 200) {  // Expecting 201 status code for created resource
           setResources((prevResources) => [...prevResources, response.data]);

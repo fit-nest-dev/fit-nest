@@ -64,7 +64,7 @@ const DescriptionBox = () => {
     }
     else {
       try {
-        const response = await axios.get(`http://localhost:5000/api/Cart/GetCarts/${id}`, { withCredentials: true });
+        const response = await axios.get(`http://3.25.86.182:5000/api/Cart/GetCarts/${id}`, { withCredentials: true });
         setCartItems(response.data);
       }
       catch (error) {
@@ -98,7 +98,7 @@ const DescriptionBox = () => {
         if (existingProductIndex !== -1) {
           const cartItem = localCart[existingProductIndex];
           const response = await axios.put(
-            `http://localhost:5000/api/products/decrementProduct-guestDescBox/${product._id}`,
+            `http://3.25.86.182:5000/api/products/decrementProduct-guestDescBox/${product._id}`,
             { cartItem,count:cartItem.cart.count+count },
             { withCredentials: true }
           );
@@ -113,7 +113,7 @@ const DescriptionBox = () => {
             cart: { product: product._id, count: 0 },
           };
           const response = await axios.put(
-            `http://localhost:5000/api/products/decrementProduct-guestDescBox/${product._id}`,
+            `http://3.25.86.182:5000/api/products/decrementProduct-guestDescBox/${product._id}`,
             { cartItem: newCartItem ,count:count },
             { withCredentials: true }
           );
@@ -135,7 +135,7 @@ const DescriptionBox = () => {
       return;
     }
     try {
-      const response = await axios.put(`http://localhost:5000/api/Cart/AddToCartDescBox/${Authuser._id}/${product._id}`
+      const response = await axios.put(`http://3.25.86.182:5000/api/Cart/AddToCartDescBox/${Authuser._id}/${product._id}`
         , {count:count},
       );
       if (response.data.message === 'Product added to cart successfully') {

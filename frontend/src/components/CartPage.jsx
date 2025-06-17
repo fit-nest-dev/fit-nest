@@ -25,7 +25,7 @@ const CartPage = () => {
   const [editedAddress, setEditedAddress] = useState(Authuser?.Address || "");
   const GetProductById = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/products/product-by-id/${id}`, { withCredentials: true });
+      const response = await axios.get(`http://3.25.86.182:5000/api/products/product-by-id/${id}`, { withCredentials: true });
       if (response.status === 200) {
         return response.data;
       }
@@ -40,7 +40,7 @@ const CartPage = () => {
     }
     else {
       try {
-        const response = await axios.get(`http://localhost:5000/api/Cart/GetCarts/${id}`, { withCredentials: true });
+        const response = await axios.get(`http://3.25.86.182:5000/api/Cart/GetCarts/${id}`, { withCredentials: true });
         setCartItems(response.data);
       }
       catch (error) {
@@ -84,7 +84,7 @@ const CartPage = () => {
   useEffect(() => {
     const fetchDiscountCodes = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/Admin/get-discount-codes', { withCredentials: true }); // Update with your backend route
+        const response = await axios.get('http://3.25.86.182:5000/api/Admin/get-discount-codes', { withCredentials: true }); // Update with your backend route
         setDiscountCodes(response.data || []);
       } catch (error) {
         console.error('Error fetching discount codes:', error);
@@ -99,7 +99,7 @@ const CartPage = () => {
   }, [])
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/products/AllProducts', { withCredentials: true });
+      const response = await axios.get('http://3.25.86.182:5000/api/products/AllProducts', { withCredentials: true });
       const map = {};
       response.data.forEach(product => {
         map[product._id] = product;
@@ -203,7 +203,7 @@ const CartPage = () => {
           // Send the existing cart item to the API
           const cartItem = localCart[existingProductIndex];
           const response = await axios.put(
-            `http://localhost:5000/api/products/decrementProduct-guest/${product.cart.product}`,
+            `http://3.25.86.182:5000/api/products/decrementProduct-guest/${product.cart.product}`,
             { cartItem },
             { withCredentials: true }
           );
@@ -222,7 +222,7 @@ const CartPage = () => {
           };
 
           const response = await axios.put(
-            `http://localhost:5000/api/products/decrementProduct-guest/${product.cart.product}`,
+            `http://3.25.86.182:5000/api/products/decrementProduct-guest/${product.cart.product}`,
             { cartItem: newCartItem },
             { withCredentials: true }
           );
@@ -237,7 +237,7 @@ const CartPage = () => {
     }
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/Cart/AddToCart/${Authuser._id}/${product.cart.product}`, {}, { withCredentials: true }
+        `http://3.25.86.182:5000/api/Cart/AddToCart/${Authuser._id}/${product.cart.product}`, {}, { withCredentials: true }
       );
       if (response.data.message === "Product added to cart successfully") {
         toast.success('INCREMENTED');
@@ -280,7 +280,7 @@ const CartPage = () => {
     }
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/Cart/DecrementCart/${Authuser._id}/${product.cart.product}`
+        `http://3.25.86.182:5000/api/Cart/DecrementCart/${Authuser._id}/${product.cart.product}`
         , {}, { withCredentials: true }
       );
       if (response.data.message === "Product removed from cart successfully") {
@@ -311,7 +311,7 @@ const CartPage = () => {
       return;
     }
     try {
-      const response = await axios.delete(`http://localhost:5000/api/Cart/DeleteFromCart/${Authuser._id}/${productId}`,
+      const response = await axios.delete(`http://3.25.86.182:5000/api/Cart/DeleteFromCart/${Authuser._id}/${productId}`,
         { withCredentials: true }
       );
       if (response.data.message === 'Product deleted from cart successfully') {
@@ -354,7 +354,7 @@ const CartPage = () => {
     }
     else {
       try {
-        const response = await axios.put(`http://localhost:5000/api/users/change-address/${Authuser._id}`, { address: editedAddress }, { withCredentials: true });
+        const response = await axios.put(`http://3.25.86.182:5000/api/users/change-address/${Authuser._id}`, { address: editedAddress }, { withCredentials: true });
         if (response.status === 200) {
           toast.success('Address updated successfully');
           localStorage.setItem("gym-user", JSON.stringify(response.data));

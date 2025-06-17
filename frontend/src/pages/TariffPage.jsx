@@ -22,7 +22,7 @@ const TariffPage = () => {
   const fetchPlans = async () => {
     try {
       setLoadingplan(true)
-      const response = await axios.get(`http://localhost:5000/api/Admin/AllMembershipPlans`)
+      const response = await axios.get(`http://3.25.86.182:5000/api/Admin/AllMembershipPlans`)
       setPlans(response.data)
     } catch (err) {
       setLoadingplan(false)
@@ -36,7 +36,7 @@ const TariffPage = () => {
     if (Authuser) {
       try {
         setLoading(true)
-        const response = await axios.get(`http://localhost:5000/api/users/GetUserById/${Authuser._id}`, {
+        const response = await axios.get(`http://3.25.86.182:5000/api/users/GetUserById/${Authuser._id}`, {
           withCredentials: true,
         })
         localStorage.setItem("gym-user", JSON.stringify(response.data))

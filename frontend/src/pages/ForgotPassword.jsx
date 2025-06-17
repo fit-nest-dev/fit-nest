@@ -21,7 +21,7 @@ const ForgotPassword = () => {
   const sendOtp = async () => {
     try {
       setLoading(true);
-      await axios.post("http://localhost:5000/api/auth/send-otp", {
+      await axios.post("http://3.25.86.182:5000/api/auth/send-otp", {
         email: emailToChange ? emailToChange : email,
         reason: "forgot-password",
       }, {
@@ -39,7 +39,7 @@ const ForgotPassword = () => {
   // Verify the OTP
   const verifyOtp = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/verify-otp", {
+      const response = await axios.post("http://3.25.86.182:5000/api/auth/verify-otp", {
         email: emailToChange ? emailToChange : email,
         otp,
 
@@ -64,7 +64,7 @@ const ForgotPassword = () => {
     }
 
     try {
-      await axios.post("http://localhost:5000/api/auth/reset-password", {
+      await axios.post("http://3.25.86.182:5000/api/auth/reset-password", {
         email: emailToChange ? emailToChange : email,
         newPassword,
       }, { withCredentials: true });

@@ -30,7 +30,7 @@ const Footer = () => {
    */
   const fetchCompanyInfo = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/Admin/get-footer-info`, { withCredentials: true });
+      const response = await axios.get(`http://3.25.86.182:5000/api/Admin/get-footer-info`, { withCredentials: true });
       setCompanyInfo(response.data[0]);
     } catch (err) {
       console.error("Error fetching company info:", err);

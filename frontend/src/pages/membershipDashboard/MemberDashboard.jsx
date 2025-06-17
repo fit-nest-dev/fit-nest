@@ -60,7 +60,7 @@ const MemberDashboard = () => {
     if(Authuser){ 
     try{
       setLoading(true)
-      const response = await axios.get(`http://localhost:5000/api/users/GetUserById/${Authuser._id}`, { withCredentials: true })
+      const response = await axios.get(`http://3.25.86.182:5000/api/users/GetUserById/${Authuser._id}`, { withCredentials: true })
       localStorage.setItem('gym-user', JSON.stringify(response.data));
     }
     catch(err){
@@ -80,7 +80,7 @@ const MemberDashboard = () => {
     // You can send this data to the backend or process it further
     try {
       const res = await axios.post(
-        `http://localhost:5000/api/users/workoutDietPdfReguest/${Authuser._id}`,
+        `http://3.25.86.182:5000/api/users/workoutDietPdfReguest/${Authuser._id}`,
         {
           age: formData?.age,
           height: formData?.height,
@@ -117,7 +117,7 @@ const MemberDashboard = () => {
       return;
      }
       const response = await axios.post(
-        `http://localhost:5000/api/users/requestToChangeInfo`,
+        `http://3.25.86.182:5000/api/users/requestToChangeInfo`,
         requestPayload, { withCredentials: true }
               );
               if(response.status===200){

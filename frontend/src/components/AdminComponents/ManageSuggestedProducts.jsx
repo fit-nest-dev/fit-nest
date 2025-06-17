@@ -15,7 +15,7 @@ const ManageSuggestedProducts = () => {
   const [resources, setResources] = useState([]);
   const fetchResources = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/Admin/AllResources');
+      const response = await axios.get('http://3.25.86.182:5000/api/Admin/AllResources');
       setResources(response.data);
     } catch (err) {
       console.log(err);
@@ -25,7 +25,7 @@ const ManageSuggestedProducts = () => {
     // Fetch all products on component load
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/products/AllProducts', { withCredentials: true }); // Update with your backend route
+        const response = await axios.get('http://3.25.86.182:5000/api/products/AllProducts', { withCredentials: true }); // Update with your backend route
         setProducts(response.data);
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -66,7 +66,7 @@ const ManageSuggestedProducts = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/Admin/save-suggested-products', { productIds: selectedProducts }
+      const response = await axios.post('http://3.25.86.182:5000/api/Admin/save-suggested-products', { productIds: selectedProducts }
         , { withCredentials: true }
       );
       setSelectedProducts([]);

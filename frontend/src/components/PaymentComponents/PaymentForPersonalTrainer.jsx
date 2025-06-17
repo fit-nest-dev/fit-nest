@@ -24,7 +24,7 @@ const PaymentForPersonalTrainer = () => {
 
         try {
             // Step 1: Create Razorpay order
-            const orderResponse = await axios.post('http://localhost:5000/api/Payment/create-order-for-trainer', {
+            const orderResponse = await axios.post('http://3.25.86.182:5000/api/Payment/create-order-for-trainer', {
                 TrainerId,
                 userId,
                 amount: amount,
@@ -44,7 +44,7 @@ const PaymentForPersonalTrainer = () => {
                     // On payment success, verify the payment
                     try {
                         const verifyResponse = await axios.post(
-                            'http://localhost:5000/api/Payment/verify-payment-for-trainer',
+                            'http://3.25.86.182:5000/api/Payment/verify-payment-for-trainer',
                             {
                                 razorpay_payment_id: response.razorpay_payment_id,
                                 razorpay_signature: response.razorpay_signature,

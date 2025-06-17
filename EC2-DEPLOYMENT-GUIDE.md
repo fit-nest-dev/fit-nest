@@ -49,7 +49,7 @@ This will:
 - Create a default .env file if it doesn't exist (you'll need to update with your MongoDB URI)
 - Build and run both frontend and backend containers
 - Make the application available at: http://localhost:3000
-- Make the API available at: http://localhost:5000
+- Make the API available at: http://3.25.86.182:5000/
 
 ## Manual Deployment via AWS Console
 

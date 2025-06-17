@@ -32,7 +32,7 @@ const FeedbackDialog = ({ userId }) => {
     setIsSubmitting(true);
 
     try {
-      const response = await axios.post("http://localhost:5000/api/users/submit-feedback", {
+      const response = await axios.post("http://3.25.86.182:5000/api/users/submit-feedback", {
         userId,
         message: feedbackMessage,
       }, { withCredentials: true });
