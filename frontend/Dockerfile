@@ -1,33 +1,29 @@
+# Stage 1: Build the Vite app
 FROM node:20-alpine AS build
 
 WORKDIR /app/frontend
 
-# Copy package files first for better caching
-COPY frontend/package.json frontend/package-lock.json* frontend/npm-shrinkwrap.json* ./
+# Install dependencies
+COPY frontend/package.json frontend/package-lock.json* ./
+RUN npm ci --silent
 
-# Install dependencies with cache optimization
-RUN npm ci --silent && npm cache clean --force
+# Copy source files
+COPY frontend/ .
 
-# Copy only necessary source files
-COPY frontend/index.html ./
-COPY frontend/vite.config.js ./
-COPY frontend/tailwind.config.js ./
-COPY frontend/postcss.config.js ./
-COPY frontend/public ./public/
-COPY frontend/src ./src/
-
-# Build the app with production optimization
+# Build the Vite app
 RUN npm run build
 
-# Production stage
+# Stage 2: Serve with Nginx
 FROM nginx:alpine
 
-# Copy build files from build stage
+# Copy built files to Nginx html folder
 COPY --from=build /app/frontend/dist /usr/share/nginx/html
 
-# Copy nginx configuration 
+# Copy custom Nginx config
 COPY frontend/nginx/default.conf /etc/nginx/conf.d/default.conf
 
+# Expose port 80
 EXPOSE 80
 
+# Run Nginx
 CMD ["nginx", "-g", "daemon off;"]

@@ -1,9 +1,9 @@
 # PowerShell script for Windows users to deploy Fit-Nest application
 
 # Parameters
-$dockerHubUsername = "shlokkk"  # Use your actual Docker Hub username
-$ec2Instance = "ubuntu@ec2-3-25-65-100.ap-southeast-2.compute.amazonaws.com"
-$pemFile = "fit-nest.pem"
+$dockerHubUsername = "anuragkt16"  # Use your actual Docker Hub username
+$ec2Instance = "ubuntu@ec2-3-25-86-182.ap-southeast-2.compute.amazonaws.com"
+$pemFile = "fit-nestt.pem"
 
 # Function to test SSH connection
 function Test-SSHConnection {

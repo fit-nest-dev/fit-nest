@@ -8,16 +8,16 @@
 # docker login
 
 # Build and tag the backend image
-docker build -t shlokkk/fit-nest-backend:latest -f backend/Dockerfile .
-docker push shlokkk/fit-nest-backend:latest
+docker build --platform linux/amd64 -t anuragkt16/fit-nest-backend:latest -f backend/Dockerfile .
+docker push anuragkt16/fit-nest-backend:latest
 
 # Build and tag the frontend image
-docker build -t shlokkk/fit-nest-frontend:latest -f frontend/Dockerfile .
-docker push shlokkk/fit-nest-frontend:latest
+docker build --platform linux/amd64 -t anuragkt16/fit-nest-frontend:latest -f frontend/Dockerfile .
+docker push anuragkt16/fit-nest-frontend:latest
 
 # Connect to EC2 and deploy
 echo "Deploying to EC2 instance..."
-ssh -i "fit-nest.pem" ubuntu@ec2-3-25-65-100.ap-southeast-2.compute.amazonaws.com << 'EOF'
+ssh -i "fit-nestt.pem" ubuntu@ec2-3-25-86-182.ap-southeast-2.compute.amazonaws.com << 'EOF'
   # Install Docker if not installed (optional, if your EC2 doesn't have Docker yet)
   if ! [ -x "$(command -v docker)" ]; then
     echo "Installing Docker..."
@@ -45,7 +45,7 @@ version: '3.8'
 
 services:
   backend:
-    image: shlokkk/fit-nest-backend:latest
+    image: anuragkt16/fit-nest-backend:latest
     container_name: fit-nest-backend
     restart: unless-stopped
     ports:
@@ -56,7 +56,7 @@ services:
       # Add other environment variables here
 
   frontend:
-    image: shlokkk/fit-nest-frontend:latest
+    image: anuragkt16/fit-nest-frontend:latest
     container_name: fit-nest-frontend
     restart: unless-stopped
     depends_on:
