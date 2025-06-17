@@ -1,0 +1,79 @@
+# Node.js common files
+node_modules
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+.pnpm-debug.log
+.npm
+.yarn
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Docker files
+Dockerfile
+.dockerignore
+docker-compose*.yml
+
+# Git files
+.git
+.github
+.gitignore
+.gitattributes
+
+# IDE files
+.idea
+.vscode
+*.swp
+*.swo
+.DS_Store
+*.sublime*
+
+# Documentation
+README.md
+*.md
+LICENSE
+docs/
+
+# Testing and coverage
+coverage/
+.nyc_output
+__tests__
+test/
+tests/
+*.test.js
+*.spec.js
+
+# Build artifacts and outputs
+dist/
+build/
+out/
+.next/
+.cache/
+.nuxt/
+.output/
+.parcel-cache/
+
+# Development files
+.env
+.env.*
+!.env.example
+*.log
+logs/
+*.pem
+*.key
+*.cert
+
+# Frontend specific
+/frontend/node_modules
+/frontend/dist
+/frontend/.cache
+/frontend/coverage
+/frontend/public/hot
+/frontend/.eslintcache
+
+# Backend specific
+/backend/node_modules
+/backend/dist
+/backend/coverage
+/backend/logs

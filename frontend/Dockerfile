@@ -1,21 +1,33 @@
-FROM node:18-alpine as build
+FROM node:20-alpine AS build
 
-WORKDIR /app
+WORKDIR /app/frontend
 
-COPY package*.json ./
+# Copy package files first for better caching
+COPY frontend/package.json frontend/package-lock.json* frontend/npm-shrinkwrap.json* ./
 
-RUN npm install
+# Install dependencies with cache optimization
+RUN npm ci --silent && npm cache clean --force
 
-COPY . .
+# Copy only necessary source files
+COPY frontend/index.html ./
+COPY frontend/vite.config.js ./
+COPY frontend/tailwind.config.js ./
+COPY frontend/postcss.config.js ./
+COPY frontend/public ./public/
+COPY frontend/src ./src/
 
+# Build the app with production optimization
 RUN npm run build
 
+# Production stage
 FROM nginx:alpine
 
-COPY --from=build /app/dist /usr/share/nginx/html
+# Copy build files from build stage
+COPY --from=build /app/frontend/dist /usr/share/nginx/html
 
-COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+# Copy nginx configuration 
+COPY frontend/nginx/default.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 3000
+EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]

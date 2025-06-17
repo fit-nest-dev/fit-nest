@@ -1,35 +1,38 @@
-version: '3'
+version: '3.8'
 
 services:
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: fitnest-backend
-    restart: always
-    env_file: ./backend/.env
-    ports:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    container_name: fit-nest-backend
+    restart: unless-stopped    ports:
       - "5000:5000"
-    networks:
-      - fitnest-network
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      # Add other environment variables as needed
+    env_file:
+      - ./backend/.env
     volumes:
-      - backend-data:/app/data
+      - ./backend:/app/backend
+      - /app/backend/node_modules
+    networks:
+      - fit-nest-network
+
   frontend:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: fitnest-frontend
-    restart: always
-    ports:
-      - "3000:3000"
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    container_name: fit-nest-frontend
+    restart: unless-stopped
     depends_on:
       - backend
+    ports:
+      - "3000:80"
     networks:
-      - fitnest-network
+      - fit-nest-network
 
 networks:
-  fitnest-network:
+  fit-nest-network:
     driver: bridge
-
-volumes:
-  backend-data:
