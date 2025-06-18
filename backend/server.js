@@ -38,11 +38,19 @@ app.use(
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'", "https://checkout.razorpay.com"],
       imgSrc: ["'self'", "data:", "https://i.imgur.com", "https://firebasestorage.googleapis.com"],
-      connectSrc: ["'self'", "https://api.razorpay.com", "https://lumberjack.razorpay.com"],
+      connectSrc: [
+        "'self'",
+        "wss://www.fit-nest.in",
+        "ws://16.176.121.1",
+        "ws://3.25.86.182:5000",
+        "https://api.razorpay.com",
+        "https://lumberjack.razorpay.com"
+      ],
       frameSrc: ["'self'", "https://checkout.razorpay.com", "https://api.razorpay.com"],
     },
   })
 );
+
  
 
 // Optionally configure Helmet for specific needs
