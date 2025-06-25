@@ -61,6 +61,79 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({ origin: ["http://localhost:3000","http://localhost:3001" ,"https://fit-nest.onrender.com","http://3.25.86.182:3000", "http://3.25.86.182:5000"], credentials: true }));
 app.use(bodyParser.json());
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    environment: process.env.NODE_ENV,
+    razorpay_configured: !!(process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET)
+  });
+});
+
+// API health check with more details
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    environment: process.env.NODE_ENV,
+    database: 'connected', // You can add actual DB check here
+    services: {
+      razorpay: !!(process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET),
+      email: !!process.env.EMAIL_USER,
+      cloudinary: !!process.env.CLOUDINARY_CLOUD_NAME
+    }
+  });
+});
+
+// Test endpoint for payment debugging
+app.post('/api/Payment/test-order', async (req, res) => {
+  try {
+    const { amount = 100 } = req.body; // Default to ₹1 for testing
+    
+    const Razorpay = await import('razorpay');
+    const razorpay = new Razorpay.default({
+      key_id: process.env.RAZORPAY_KEY_ID,
+      key_secret: process.env.RAZORPAY_KEY_SECRET
+    });
+
+    const order = await razorpay.orders.create({
+      amount: amount * 100, // Convert to paise
+      currency: 'INR',
+      receipt: 'test_' + Date.now(),
+      notes: {
+        test: true,
+        environment: process.env.NODE_ENV
+      }
+    });
+
+    res.status(200).json({
+      success: true,
+      message: 'Test order created successfully',
+      order: {
+        id: order.id,
+        amount: order.amount,
+        currency: order.currency,
+        status: order.status
+      },
+      config: {
+        key_id: process.env.RAZORPAY_KEY_ID,
+        environment: process.env.NODE_ENV
+      }
+    });
+  } catch (error) {
+    console.error('Test order creation failed:', error);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      details: error.response?.data || null
+    });
+  }
+});
+
 //middleware
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);

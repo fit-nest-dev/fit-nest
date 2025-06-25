@@ -1,4 +1,3 @@
-
 import Razorpay from 'razorpay';
 import crypto from 'crypto';
 import Order from '../models/Order_Model.js';
@@ -7,6 +6,12 @@ import nodemailer from 'nodemailer'
 import dotenv from "dotenv"
 import User from '../models/User_Model.js';
 dotenv.config()
+
+// Validate Razorpay configuration
+if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+  console.error('RAZORPAY_KEY_ID or RAZORPAY_KEY_SECRET not found in environment variables');
+  throw new Error('Razorpay configuration missing');
+}
 
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,   // Replace with  Razorpay Key ID
@@ -238,6 +243,21 @@ export const CreateOrderForMultiple = async (req, res) => {
   try {
     const { userId, products, totalPrice, address } = req.body;
 
+    // Validate request data
+    if (!userId || !products || !totalPrice) {
+      return res.status(400).json({ 
+        success: false, 
+        error: "Missing required fields: userId, products, or totalPrice" 
+      });
+    }
+
+    if (totalPrice <= 0) {
+      return res.status(400).json({ 
+        success: false, 
+        error: "Total price must be greater than 0" 
+      });
+    }
+
     const order = await razorpay.orders.create({
       amount: totalPrice * 100, // Convert INR to paise
       currency: "INR",
@@ -248,6 +268,8 @@ export const CreateOrderForMultiple = async (req, res) => {
       },
     });
 
+    console.log("Order created successfully:", order.id);
+    
     res.status(200).json({
       success: true,
       orderId: order.id,
@@ -256,7 +278,12 @@ export const CreateOrderForMultiple = async (req, res) => {
     });
   } catch (error) {
     console.error("Error creating Razorpay order:", error);
-    res.status(500).json({ success: false, error: "Unable to create order" });
+    console.error("Error details:", error.response?.data || error.message);
+    res.status(500).json({ 
+      success: false, 
+      error: "Unable to create order",
+      details: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 };
 /**
@@ -283,6 +310,21 @@ export const VerifyPaymentForMultiple = async (req, res) => {
       first_name,
       last_name,
     } = req.body;
+
+    // Validate required fields
+    if (!razorpay_payment_id || !razorpay_order_id || !razorpay_signature) {
+      return res.status(400).json({ 
+        success: false, 
+        error: "Missing payment verification data" 
+      });
+    }
+
+    console.log("Verifying payment with details:", {
+      payment_id: razorpay_payment_id,
+      order_id: razorpay_order_id,
+      signature: razorpay_signature ? "provided" : "missing"
+    });
+
     const generatedSignature = crypto
       .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
       .update(`${razorpay_order_id}|${razorpay_payment_id}`)
@@ -303,17 +345,36 @@ export const VerifyPaymentForMultiple = async (req, res) => {
         deliveryDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
         address
       });
+
       const invoice_url = await generateInvoiceWithPaymentId(razorpay_payment_id);
       await newOrder.save();
       await sendOrderConfirmation(email, products, first_name, last_name, totalAmount, razorpay_order_id);
-      res.status(200).json({ success: true, message: "Payment verified successfully", invoice_url: invoice_url ? invoice_url : "" });
+      
+      console.log("Payment verified successfully for order:", razorpay_order_id);
+      
+      res.status(200).json({ 
+        success: true, 
+        message: "Payment verified successfully", 
+        invoice_url: invoice_url ? invoice_url : "" 
+      });
     } else {
-
-      res.status(400).json({ success: false, error: "Invalid payment signature" });
+      console.log("Payment signature verification failed");
+      console.log("Generated signature:", generatedSignature);
+      console.log("Received signature:", razorpay_signature);
+      
+      res.status(400).json({ 
+        success: false, 
+        error: "Invalid payment signature" 
+      });
     }
   } catch (error) {
     console.log("Error verifying payment:", error);
-    res.status(500).json({ success: false, error: "Payment verification failed" });
+    console.log("Error stack:", error.stack);
+    res.status(500).json({ 
+      success: false, 
+      error: "Payment verification failed",
+      details: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 };
 /**
@@ -327,6 +388,19 @@ export const CreateOrderForTrainer = async (req, res) => {
   try {
     const { TrainerId, userId, amount } = req.body;
 
+    // Validate request data
+    if (!TrainerId || !userId || !amount) {
+      return res.status(400).json({ 
+        error: 'Missing required fields: TrainerId, userId, or amount' 
+      });
+    }
+
+    if (amount <= 0) {
+      return res.status(400).json({ 
+        error: 'Amount must be greater than 0' 
+      });
+    }
+
     const order = await razorpay.orders.create({
       amount: amount * 100, // Convert INR to paise
       currency: 'INR',
@@ -336,6 +410,9 @@ export const CreateOrderForTrainer = async (req, res) => {
         userId,
       },
     });
+
+    console.log("Trainer order created successfully:", order.id);
+    
     res.status(200).json({
       orderId: order.id,
       amount,
@@ -343,9 +420,12 @@ export const CreateOrderForTrainer = async (req, res) => {
     })
   }
   catch (err) {
-    console.error('Error creating order:', err);
-    res.status(500).json({ error: 'Unable to create order' });
-    console.log(err)
+    console.error('Error creating trainer order:', err);
+    console.error('Error details:', err.response?.data || err.message);
+    res.status(500).json({ 
+      error: 'Unable to create order',
+      details: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
   }
 }
 /**
@@ -361,6 +441,20 @@ export const CreateOrderForTrainer = async (req, res) => {
 export const CreateOrderForMembership = async (req, res) => {
   try {
     const { type, amount, userId } = req.body;
+
+    // Validate request data
+    if (!type || !amount || !userId) {
+      return res.status(400).json({ 
+        error: 'Missing required fields: type, amount, or userId' 
+      });
+    }
+
+    if (amount <= 0) {
+      return res.status(400).json({ 
+        error: 'Amount must be greater than 0' 
+      });
+    }
+
     const order = await razorpay.orders.create({
       amount: amount * 100, // Convert INR to paise
       currency: 'INR',
@@ -371,6 +465,9 @@ export const CreateOrderForMembership = async (req, res) => {
         userId
       },
     });
+
+    console.log("Membership order created successfully:", order.id);
+    
     res.status(200).json({
       orderId: order.id,
       amount,
@@ -378,8 +475,12 @@ export const CreateOrderForMembership = async (req, res) => {
     });
   }
   catch (err) {
-    console.error('Error creating order:', err);
-    res.status(500).json({ error: 'Unable to create order' });
+    console.error('Error creating membership order:', err);
+    console.error('Error details:', err.response?.data || err.message);
+    res.status(500).json({ 
+      error: 'Unable to create order',
+      details: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
   }
 }
 /**

@@ -215,22 +215,38 @@ const PaymentPage = () => {
     }
   }
   const handlePayment = async () => {
-    const response = await fetch('/api/Cart/validate-stock', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ cartItems }), // Pass the cartItems array as is
-    });
-
-    const result = await response.json();
-    if (response.status === 400) {
-      result.outOfStock.forEach(product => {
-        toast.error(`Requested count of ${productsMap[product.productId].product_name} is not availaible, decrement the count`, { duration: 6000 });
-      });
-      return;
-    }
     try {
+      // Check if Razorpay is loaded
+      if (!window.Razorpay) {
+        toast.error("Payment gateway not loaded. Please refresh the page and try again.");
+        return;
+      }
+
+      // Check if Razorpay key is available
+      if (!import.meta.env.VITE_RAZORPAY_KEY_ID) {
+        console.error("VITE_RAZORPAY_KEY_ID not found in environment variables");
+        toast.error("Payment configuration error. Please contact support.");
+        return;
+      }
+
+      // Validate stock before payment
+      const response = await fetch('/api/Cart/validate-stock', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ cartItems }), // Pass the cartItems array as is
+      });
+
+      const result = await response.json();
+      if (response.status === 400) {
+        result.outOfStock.forEach(product => {
+          toast.error(`Requested count of ${productsMap[product.productId].product_name} is not availaible, decrement the count`, { duration: 6000 });
+        });
+        return;
+      }
+
+      // Create Razorpay order
       const orderResponse = await axios.post(
         Authuser ? "http://3.25.86.182:5000/api/Payment/create-order-multiple"
           : "http://3.25.86.182:5000/api/Payment/create-order-multiple-guest",
@@ -242,9 +258,16 @@ const PaymentPage = () => {
         },
         { withCredentials: true }
       );
+
+      if (!orderResponse.data.success) {
+        toast.error(orderResponse.data.error || "Failed to create order");
+        return;
+      }
+
       const { orderId, amount, currency } = orderResponse.data;
       await handlePlaceLockOnOrder(selectedProducts);
       setloading(true);
+
       const options = {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID, // Replace with your Razorpay Key ID
         amount: amount * 100, // Amount in paise
@@ -296,7 +319,8 @@ const PaymentPage = () => {
             } else {
               setloading(false);
               await handleReleaseLockDue(selectedProducts);
-              toast.error("Payment verification failed. Please contact support.");
+              const errorMsg = verificationResponse.data.error || "Payment verification failed";
+              toast.error(`${errorMsg}. Please contact support.`);
               navigate(
                 `/Check-Status/${response.razorpay_payment_id}/${totalPrice.toFixed(
                   2
@@ -306,8 +330,19 @@ const PaymentPage = () => {
           } catch (error) {
             setloading(false);
             await handleReleaseLockDue(selectedProducts);
-            toast.error("Payment verification failed. Please contact support.");
             console.error("Payment verification failed:", error);
+            
+            // More specific error handling
+            let errorMessage = "Payment verification failed. Please contact support.";
+            if (error.response?.data?.error) {
+              errorMessage = error.response.data.error;
+            } else if (error.response?.data?.message) {
+              errorMessage = error.response.data.message;
+            } else if (error.message) {
+              errorMessage = error.message;
+            }
+            
+            toast.error(errorMessage);
             navigate(
               `/Check-Status/${response.razorpay_payment_id}/${totalPrice.toFixed(
                 2
@@ -334,7 +369,19 @@ const PaymentPage = () => {
       rzp.open();
     } catch (error) {
       console.error("Error creating Razorpay order:", error);
-      alert("An error occurred. Please try again.");
+      setloading(false);
+      
+      // More specific error handling
+      let errorMessage = "An error occurred. Please try again.";
+      if (error.response?.data?.error) {
+        errorMessage = error.response.data.error;
+      } else if (error.response?.data?.message) {
+        errorMessage = error.response.data.message;
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      
+      toast.error(errorMessage);
     }
   };
 

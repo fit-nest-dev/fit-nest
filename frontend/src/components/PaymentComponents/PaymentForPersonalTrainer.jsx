@@ -20,9 +20,20 @@ const PaymentForPersonalTrainer = () => {
 
 
     const handlePayment = async () => {
-
-
         try {
+            // Check if Razorpay is loaded
+            if (!window.Razorpay) {
+                toast.error("Payment gateway not loaded. Please refresh the page and try again.");
+                return;
+            }
+
+            // Check if Razorpay key is available
+            if (!import.meta.env.VITE_RAZORPAY_KEY_ID) {
+                console.error("VITE_RAZORPAY_KEY_ID not found in environment variables");
+                toast.error("Payment configuration error. Please contact support.");
+                return;
+            }
+
             // Step 1: Create Razorpay order
             const orderResponse = await axios.post('http://3.25.86.182:5000/api/Payment/create-order-for-trainer', {
                 TrainerId,
@@ -30,8 +41,14 @@ const PaymentForPersonalTrainer = () => {
                 amount: amount,
             }, { withCredentials: true });
 
+            if (!orderResponse.data.orderId) {
+                toast.error(orderResponse.data.error || "Failed to create order");
+                return;
+            }
+
             const { orderId } = orderResponse.data; // Get orderId from response
             setLoading(true);
+            
             // Step 2: Open Razorpay Checkout
             const options = {
                 key: import.meta.env.VITE_RAZORPAY_KEY_ID, // Replace with Razorpay Key ID
@@ -63,14 +80,32 @@ const PaymentForPersonalTrainer = () => {
                         if (verifyResponse.data.success) {
                             setLoading(false);
                             toast.success('Payment successful!');
-                            navigate(`/Success/:${orderId}/${userId}/${TrainerId}/${amount}`, { state: { invoice_url: verifyResponse.data.invoice_url, trainer: verifyResponse.data.trainer } });
+                            navigate(`/Success/:${orderId}/${userId}/${TrainerId}/${amount}`, { 
+                                state: { 
+                                    invoice_url: verifyResponse.data.invoice_url, 
+                                    trainer: verifyResponse.data.trainer 
+                                } 
+                            });
                         } else {
-                            setLoading(false)
+                            setLoading(false);
+                            const errorMsg = verifyResponse.data.error || verifyResponse.data.message || "Payment verification failed";
+                            toast.error(errorMsg);
                             navigate(`/Check-Status/${response.razorpay_payment_id}/${amount}`);
                         }
                     } catch (error) {
-                        setLoading(false)
-                        toast.error('Error verifying payment. Please contact support.');
+                        setLoading(false);
+                        console.error('Payment verification error:', error);
+                        
+                        let errorMessage = 'Error verifying payment. Please contact support.';
+                        if (error.response?.data?.error) {
+                            errorMessage = error.response.data.error;
+                        } else if (error.response?.data?.message) {
+                            errorMessage = error.response.data.message;
+                        } else if (error.message) {
+                            errorMessage = error.message;
+                        }
+                        
+                        toast.error(errorMessage);
                         navigate(`/Check-Status/${response.razorpay_payment_id}/${amount}`);
                     }
                 },
@@ -94,7 +129,17 @@ const PaymentForPersonalTrainer = () => {
         } catch (error) {
             console.error('Error creating order:', error);
             setLoading(false);
-            alert('An error occurred. Please try again.');
+            
+            let errorMessage = 'An error occurred. Please try again.';
+            if (error.response?.data?.error) {
+                errorMessage = error.response.data.error;
+            } else if (error.response?.data?.message) {
+                errorMessage = error.response.data.message;
+            } else if (error.message) {
+                errorMessage = error.message;
+            }
+            
+            toast.error(errorMessage);
         }
     };
 
