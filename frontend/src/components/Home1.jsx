@@ -117,22 +117,62 @@ const Home1 = () => {
   }
   return (
     <div className="bg-black text-white font-sans">
-      {/* Full-Screen Video Section */}
-      {/* Full-Screen Video Section */}
-      <section className="flex justify-center items-center h-screen bg-black">
-        <div className="w-full h-screen flex justify-center items-center bg-black">
-          <img
-            className="w-full h-full object-contain"
-            src={resources.find((resource) => resource.title === "HOME_PAGE_VIDEO")?.resourceLink || "/placeholder.svg"}
-            alt="Home Logo"
-          />
+      {/* Full-Screen Video Section - Fully Responsive Video for All Screens */}
+      <section className="relative w-full h-screen bg-black overflow-hidden">
+        {/* Video Background */}
+        <div className="absolute inset-0">
+          <video 
+            className="w-full h-full object-cover"
+            autoPlay
+            loop
+            muted
+            playsInline
+            style={{ 
+              minHeight: '100vh',
+              objectPosition: 'center center'
+            }}
+          >
+            <source src="/images/Gym video.mp4" type="video/mp4" />
+            {/* Fallback if video doesn't load */}
+            {resources.find((resource) => resource.title === "HOME_PAGE_VIDEO")?.resourceLink && (
+              <img
+                className="w-full h-full object-cover"
+                src={resources.find((resource) => resource.title === "HOME_PAGE_VIDEO")?.resourceLink}
+                alt="Gym Video Fallback"
+              />
+            )}
+          </video>
+          
+          {/* Dark overlay for better text visibility */}
+          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+        </div>
+        
+        {/* Hero Content */}
+        <div className="relative h-full flex flex-col justify-center items-center text-center px-4 sm:px-6">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 text-white">
+            <span className="block">FIT NEST</span>
+            <span className="block text-green-500 text-2xl sm:text-3xl md:text-4xl mt-2">#wetrainlikefamily</span>
+          </h1>
+          <p className="text-xl sm:text-2xl text-white mb-8 max-w-3xl">
+            Transform your body. Transform your life.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link to="/members" className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-md transition duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center">
+              <i className="fas fa-dumbbell mr-2"></i>
+              JOIN NOW
+            </Link>
+            <Link to="/shop" className="bg-transparent border-2 border-white text-white hover:border-green-500 font-bold py-3 px-8 rounded-md transition duration-300 transform hover:scale-105 hover:text-green-500 shadow-lg flex items-center justify-center">
+              <i className="fas fa-store mr-2"></i>
+              GEAR UP
+            </Link>
+          </div>
         </div>
       </section>
 
-      <section className="bg-black py-12 px-6 ">
-        <h2 className="text-white text-center text-5xl font-extrabold mb-20 relative">
+      <section className="bg-black py-8 sm:py-12 px-4 sm:px-6">
+        <h2 className="text-white text-center text-3xl sm:text-4xl md:text-5xl font-extrabold mb-10 sm:mb-20 relative">
           <span className="relative z-10">Best Transformation</span>
-          <span className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-green-500"></span>
+          <span className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-16 sm:w-24 h-1 bg-green-500"></span>
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {resources
@@ -154,28 +194,28 @@ const Home1 = () => {
                 eventResource.customResource.map((event, index) => (
                   <div
                     key={index}
-                    className="relative h-[540px] overflow-hidden shadow-md shadow-green-50/50 transition-transform transform hover:scale-105 hover:shadow-lg hover:shadow-green-300 hover:border hover:border-green-600 group"
+                    className="relative h-[350px] sm:h-[400px] md:h-[450px] lg:h-[540px] overflow-hidden shadow-md shadow-green-50/50 transition-transform transform hover:scale-105 hover:shadow-lg hover:shadow-green-300 hover:border hover:border-green-600 group"
                   >
                     {/* Event Image */}
                     <img
                       src={event.imageLink || "https://via.placeholder.com/300x200?text=Event+Image"}
                       alt={event.title || "Event Image"}
-                      className="w-68 m-auto object-cover h-57 "
+                      className="w-full m-auto object-cover h-[200px] sm:h-[250px] md:h-[300px]"
                     />
 
                     {/* Card Content */}
-                    <div className="p-6 bg-black bg-opacity-90 flex flex-col items-center">
+                    <div className="p-4 sm:p-6 bg-black bg-opacity-90 flex flex-col items-center">
                       {/* Horizontal Flex Container */}
-                      <div className="flex items-center justify-between w-full mb-4">
+                      <div className="flex flex-col sm:flex-row items-center justify-between w-full mb-4">
                         {/* Date */}
-                        <div className="text-green-600 font-bold text-center flex flex-col items-center">
+                        <div className="text-green-600 font-bold text-center flex flex-col items-center mb-2 sm:mb-0">
                           {/* Month, Day, and Year */}
                           <span className="block text-xs text-white"></span>
 
                           {/* Year */}
-                          <span className="text-4xl text-green-600">{event.date.split("-")[0] || "2024"}</span>
+                          <span className="text-3xl sm:text-4xl text-green-600">{event.date.split("-")[0] || "2024"}</span>
                         </div>
-                        <h3 className="text-2xl font-bold text-center text-white  transition-colors duration-300 ml-4">
+                        <h3 className="text-xl sm:text-2xl font-bold text-center sm:text-left text-white transition-colors duration-300 sm:ml-4">
                           {event.title || "EVENT NAME"}
                         </h3>
                       </div>
@@ -301,27 +341,27 @@ const Home1 = () => {
       {/* Content Section */}
 
       {/* Why Choose Us Section - Modern Design */}
-      <section className="py-16 px-4 bg-black">
+      <section className="py-10 sm:py-16 px-4 bg-black">
         <div className="w-full">
-          <h2 className="text-white text-center text-5xl font-extrabold mb-16 relative">
+          <h2 className="text-white text-center text-3xl sm:text-4xl md:text-5xl font-extrabold mb-10 sm:mb-16 relative">
             <span className="relative z-10">Why Choose Us</span>
-            <span className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-green-500"></span>
+            <span className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-16 sm:w-24 h-1 bg-green-500"></span>
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
             {/* Jerai Fitness */}
-            <div className="group relative overflow-hidden rounded-xl shadow-2xl transition-all duration-500 hover:shadow-green-500/30 border border-gray-800 hover:border-green-500/50">
+            <div className="group relative overflow-hidden rounded-xl shadow-2xl transition-all duration-500 hover:shadow-green-500/30 border border-gray-800 hover:border-green-500/50 min-h-[250px] sm:min-h-[300px]">
               <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/90 z-10"></div>
               <img
                 src="/images/jerai.avif"
                 alt="Jerai Fitness Equipment"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
-              <div className="relative z-20 p-8 h-full flex flex-col">
-                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-green-400 transition-colors duration-300">
+              <div className="relative z-20 p-4 sm:p-6 md:p-8 h-full flex flex-col">
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 sm:mb-4 group-hover:text-green-400 transition-colors duration-300">
                   Jerai Fitness AKA Being Strong
                 </h3>
-                <p className="text-gray-300 mb-6 group-hover:text-white transition-colors duration-300">
+                <p className="text-sm sm:text-base text-gray-300 mb-4 sm:mb-6 group-hover:text-white transition-colors duration-300">
                   Inspiring Strength. Delivering Excellence
                 </p>
                 <div className="mt-auto flex justify-end">
@@ -335,18 +375,18 @@ const Home1 = () => {
             </div>
 
             {/* Floor Area */}
-            <div className="group relative overflow-hidden rounded-xl shadow-2xl transition-all duration-500 hover:shadow-green-500/30 border border-gray-800 hover:border-green-500/50">
+            <div className="group relative overflow-hidden rounded-xl shadow-2xl transition-all duration-500 hover:shadow-green-500/30 border border-gray-800 hover:border-green-500/50 min-h-[250px] sm:min-h-[300px]">
               <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/90 z-10"></div>
               <img
                 src="/images/floor.avif"
                 alt="Gym Floor Area"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
-              <div className="relative z-20 p-8 h-full flex flex-col">
-                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-green-400 transition-colors duration-300">
+              <div className="relative z-20 p-4 sm:p-6 md:p-8 h-full flex flex-col">
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 sm:mb-4 group-hover:text-green-400 transition-colors duration-300">
                   Floor Area
                 </h3>
-                <p className="text-gray-300 mb-6 group-hover:text-white transition-colors duration-300">
+                <p className="text-sm sm:text-base text-gray-300 mb-4 sm:mb-6 group-hover:text-white transition-colors duration-300">
                   Spread in an area of around 2,500 sq. ft. consisting of gym area around 2,000 sq. ft., 500 sq. ft. of
                   washroom.
                 </p>
@@ -354,18 +394,18 @@ const Home1 = () => {
             </div>
 
             {/* Certified Trainers */}
-            <div className="group relative overflow-hidden rounded-xl shadow-2xl transition-all duration-500 hover:shadow-green-500/30 border border-gray-800 hover:border-green-500/50">
+            <div className="group relative overflow-hidden rounded-xl shadow-2xl transition-all duration-500 hover:shadow-green-500/30 border border-gray-800 hover:border-green-500/50 min-h-[250px] sm:min-h-[300px]">
               <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/90 z-10"></div>
               <img
                 src="/images/certified.avif"
                 alt="Certified Trainers"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
-              <div className="relative z-20 p-8 h-full flex flex-col">
-                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-green-400 transition-colors duration-300">
+              <div className="relative z-20 p-4 sm:p-6 md:p-8 h-full flex flex-col">
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 sm:mb-4 group-hover:text-green-400 transition-colors duration-300">
                   Certified Trainers
                 </h3>
-                <p className="text-gray-300 mb-6 group-hover:text-white transition-colors duration-300">
+                <p className="text-sm sm:text-base text-gray-300 mb-4 sm:mb-6 group-hover:text-white transition-colors duration-300">
                   Bringing you the mix of certification with experience and a perfect blend to bring out the best in
                   you.
                 </p>
@@ -373,18 +413,18 @@ const Home1 = () => {
             </div>
 
             {/* Music by Yamaha */}
-            <div className="group relative overflow-hidden rounded-xl shadow-2xl transition-all duration-500 hover:shadow-green-500/30 border border-gray-800 hover:border-green-500/50">
+            <div className="group relative overflow-hidden rounded-xl shadow-2xl transition-all duration-500 hover:shadow-green-500/30 border border-gray-800 hover:border-green-500/50 min-h-[250px] sm:min-h-[300px]">
               <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/90 z-10"></div>
               <img
                 src="/images/yamaha.avif"
                 alt="Music System"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
-              <div className="relative z-20 p-8 h-full flex flex-col">
-                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-green-400 transition-colors duration-300">
+              <div className="relative z-20 p-4 sm:p-6 md:p-8 h-full flex flex-col">
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 sm:mb-4 group-hover:text-green-400 transition-colors duration-300">
                   Music by Yamaha
                 </h3>
-                <p className="text-gray-300 mb-6 group-hover:text-white transition-colors duration-300">
+                <p className="text-sm sm:text-base text-gray-300 mb-4 sm:mb-6 group-hover:text-white transition-colors duration-300">
                   From warm-up to cooldown, Yamaha sound keeps you motivated, focused, and thriving through every rep.
                 </p>
                 <div className="mt-auto flex justify-end">
@@ -400,9 +440,9 @@ const Home1 = () => {
         </div>
       </section>
 
-      <section className="flex flex-wrap px-4 sm:px-6 py-6 sm:py-8 bg-black relative">
+      <section className="flex flex-wrap px-4 sm:px-6 py-8 sm:py-10 md:py-12 bg-black relative">
         {/* Left Column - Name, Description, and Buttons */}
-        <div className="w-full md:w-1/2 mb-6 md:mb-0 flex flex-col items-center md:items-start text-center md:text-left">
+        <div className="w-full md:w-1/2 mb-8 md:mb-0 flex flex-col items-center md:items-start text-center md:text-left">
           <h1 className="text-2xl sm:text-3xl font-extrabold text-green-600 mb-4 font-poppins">
             <Typewriter
               options={{
@@ -440,16 +480,23 @@ const Home1 = () => {
         </div>
 
         {/* Right Column - Google Map with Button */}
-        <div className="w-full md:w-1/2 flex justify-center items-center">
-          <div className="relative w-full max-w-md transition-all duration-300">
-            <img src={MapImg || "/placeholder.svg"} width={800} height={800} alt="" />
+        <div className="w-full md:w-1/2 flex justify-center items-center mt-6 md:mt-0">
+          <div className="relative w-full max-w-full md:max-w-md transition-all duration-300">
+            <img 
+              src={MapImg || "/placeholder.svg"} 
+              className="w-full h-auto rounded-lg shadow-md" 
+              alt="Location Map" 
+            />
             <a
               href="https://www.google.com/maps/place/Fit+Nest+-+Top+Rated+Gym+In+Boring+Road/@25.6104738,85.1154629,17z/data=!3m1!4b1!4m6!3m5!1s0x39ed593ba6c93ac9:0x95a8243da486cbca!8m2!3d25.610469!4d85.1180378!16s%2Fg%2F11h2p6j35n?entry=ttu&g_ep=EgoyMDI0MTIxMS4wIKXMDSoASAFQAw%3D%3D"
               target="_blank"
               rel="noopener noreferrer"
               className="absolute inset-0 flex justify-center items-center text-white font-semibold py-2 px-4 opacity-0 hover:opacity-100 transition-opacity duration-300"
             >
-              <span className="flex items-center text-black bg-white">See Location</span>
+              <span className="flex items-center justify-center text-black bg-white py-2 px-4 rounded-md shadow-lg">
+                <i className="fas fa-map-marker-alt mr-2"></i>
+                See Location
+              </span>
             </a>
           </div>
         </div>

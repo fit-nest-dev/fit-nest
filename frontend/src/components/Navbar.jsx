@@ -8,6 +8,7 @@ import {
   FaBars,
   FaTimes,
   FaSignInAlt,
+  FaDumbbell,
 } from 'react-icons/fa';
 import { IoMdPerson } from 'react-icons/io';
 import { useAuthContext } from '../context/AuthContext';
@@ -79,6 +80,7 @@ const Navbar = () => {
             { href: '/aboutus', label: 'About Us', icon: <FaInfoCircle /> },
             { href: '/tariff', label: 'Membership', icon: <IoMdPerson /> },
             { href: '/footer', label: 'Contact Us', icon: <FaEnvelope /> },
+            { href: '/equipment', label: 'Equipment', icon: <FaDumbbell /> },
           ].map((link, idx) => (
             <li key={idx} className="group relative">
               <a
@@ -117,6 +119,7 @@ const Navbar = () => {
               { href: '/aboutus', label: 'About Us' },
               { href: '/tariff', label: 'Membership' },
               { href: '/footer', label: 'Contact Us' },
+              { href: '/equipment', label: 'Equipment' },
             ].map((link, idx) => (
               <li key={idx} className="group relative w-full text-center">
                 <a

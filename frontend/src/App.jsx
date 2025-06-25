@@ -31,6 +31,7 @@ import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsAndConditions from './components/TermsAndConditions';
 import CodeOfConduct from './components/CodeOfConduct';
 import NewMembershipBuy2 from './components/NewMembershipBuy2';
+import Equipment from './components/Equipment';
 //hello
 /**
  * The main app component. It renders the routes and the toaster.
@@ -72,6 +73,7 @@ function App() {
           <Route path='/BUY-MEMBERSHIP/:type/:price' element={<NewMembershipBuy2 />} />
           <Route path='/Register-After-Pay-Success/:orderId/:type/:price' element={<Signup />} />
           <Route path='/footer' element={<ContactUs />} />
+          <Route path='/equipment' element={<Equipment />} />
           <Route path='/terms-and-conditions' element={<TermsAndConditions />} />
           <Route path='/code-of-conduct' element={<CodeOfConduct />} />
           <Route path='/privacy-policy' element={<PrivacyPolicy />} />
