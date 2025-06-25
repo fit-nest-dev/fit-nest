@@ -43,6 +43,9 @@ app.use(
         "wss://www.fit-nest.in",
         "ws://16.176.121.1",
         "ws://3.25.86.182:5000",
+        "wss://3.25.86.182:5000",
+        "http://3.25.86.182:5000",
+        "http://3.25.86.182:3000",
         "https://api.razorpay.com",
         "https://lumberjack.razorpay.com"
       ],
@@ -56,7 +59,7 @@ app.use(
 // Optionally configure Helmet for specific needs
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: ["http://localhost:3000","http://localhost:3001" ,"https://fit-nest.onrender.com","http://3.25.86.182:5000/"], credentials: true }));
+app.use(cors({ origin: ["http://localhost:3000","http://localhost:3001" ,"https://fit-nest.onrender.com","http://3.25.86.182:3000", "http://3.25.86.182:5000"], credentials: true }));
 app.use(bodyParser.json());
 //middleware
 app.use('/api/auth', authRoutes);

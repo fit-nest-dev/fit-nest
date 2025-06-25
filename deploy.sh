@@ -74,3 +74,16 @@ EOF
 
 echo "Deployment script executed!"
 echo "Building and pushing Docker images..."
+
+echo "6. Reconnecting to EC2, pulling and running Docker containers..."
+ssh -i "$PEM_FILE" "$EC2_HOST" << EOF
+  cd /home/ubuntu/$PROJECT_NAME
+  echo "Bringing down existing Docker containers..."
+  docker-compose down
+  echo "Pulling Docker images from Docker Hub..."
+  docker-compose pull
+  echo "Running Docker containers..."
+  docker-compose up -d
+EOF
+
+echo "--- Deployment complete! ---"
