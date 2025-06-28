@@ -10,6 +10,95 @@
   align-items: center;
 }
 
+/* Pricing Tables Styling - Based on the image design */
+.pricing-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.pricing-tables-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.pricing-card {
+  width: 250px;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  background: white;
+  color: #333;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.pricing-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(74, 222, 128, 0.4);
+}
+
+.pricing-card-header {
+  padding: 1.5rem 1rem;
+  text-align: center;
+  color: white;
+}
+
+.standard-header {
+  background-color: #f05454;
+}
+.popular-header {
+  background-color: #0095ff;
+}
+.golden-header {
+  background-color: #4ade80;
+}
+.professional-header {
+  background-color: #ff8d22;
+}
+
+.plan-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+}
+
+.price-container {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+}
+
+.currency {
+  font-size: 1.2rem;
+  vertical-align: top;
+}
+
+.price {
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.period {
+  font-size: 1rem;
+  margin-left: 0.25rem;
+  opacity: 0.7;
+}
+
 .membership-active,
 .membership-expired {
   display: flex;
@@ -17,20 +106,21 @@
   align-items: center;
   border-radius: 12px;
   margin: 20px 0;
-  background: linear-gradient(145deg, #0a0a0a, #141414, #1f512e); /* Gradient background for the whole box */
+  background: linear-gradient(145deg, #0a0a0a, #141414, #1f512e);
   border: 1px solid #333;
   padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.4s ease, box-shadow 0.3s ease;
 }
+
 .membership-active:hover {
   transform: scale(1.06);
   box-shadow: 0 12px 30px rgba(40, 167, 69, 0.7);
 }
 
 .membership-card {
-  background: transparent; /* Make the card itself transparent to show the container gradient */
-  border: none; /* Remove extra borders */
+  background: transparent;
+  border: none;
   border-radius: 10px;
   max-width: 600px;
   padding: 20px;
@@ -39,20 +129,20 @@
 
 .membership-title {
   font-size: 1.8rem;
-  color: #fff; /* Green for success */
+  color: #fff;
   margin-bottom: 15px;
   font-weight: 900;
 }
 
 .info-text {
   font-size: 1rem;
-  color: #fff; /* White text for contrast */
+  color: #fff;
   margin-bottom: 20px;
 }
 
 .membership-details {
   padding: 15px;
-  background: rgba(255, 255, 255, 0.05); /* Subtle overlay for details section */
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -61,20 +151,20 @@
   display: flex;
   justify-content: space-between;
   padding: 10px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Subtle divider */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .membership-row:last-child {
-  border-bottom: none; /* Remove bottom border for the last row */
+  border-bottom: none;
 }
 
 .membership-label {
   font-weight: bold;
-  color: #fff; /* White for labels */
+  color: #fff;
 }
 
 .membership-value {
-  color: #fff; /* Green for values */
+  color: #fff;
   font-weight: 500;
 }
 
@@ -113,134 +203,280 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: 30px;
   margin-top: 30px;
 }
 
+/* NEW REDESIGNED TARIFF CARDS - Matching the image style */
 .tariff-card {
-  background: linear-gradient(145deg, #0a0a0a, #141414, #1f512e);
-  border: 1px solid #333;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
   width: 300px;
-  padding: 30px;
-  text-align: center;
-  border-radius: 12px;
-  transition: transform 0.4s ease, box-shadow 0.3s ease;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   height: auto;
-}
-
-.tariff-card .card-content {
-  flex-grow: 1;
-  text-align: center;
+  background: white;
+  position: relative;
 }
 
 .tariff-card:hover {
-  transform: scale(1.06);
-  box-shadow: 0 12px 30px rgba(40, 167, 69, 0.7);
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(74, 222, 128, 0.4);
+}
+
+/* Card Header - Colored section */
+.tariff-card-header {
+  padding: 30px 20px;
+  text-align: center;
+  color: white;
+  position: relative;
+}
+
+/* Different header colors for variety */
+.tariff-card:nth-child(1) .tariff-card-header {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+.tariff-card:nth-child(2) .tariff-card-header {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+.tariff-card:nth-child(3) .tariff-card-header {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+.tariff-card:nth-child(4) .tariff-card-header {
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+}
+
+.tariff-card:nth-child(5) .tariff-card-header {
+  background: linear-gradient(135deg, #9b59b6, #8e44ad);
+}
+
+.tariff-card:nth-child(6) .tariff-card-header {
+  background: linear-gradient(135deg, #1abc9c, #16a085);
 }
 
 .tariff-card h2 {
-  font-size: 1.6em;
-  margin-bottom: 10px;
-  font-weight: 900;
-  color: #f5f5f5;
-  word-wrap: break-word;
-}
-
-.tariff-card p {
-  font-weight: bold; /* Makes the text bold */
-  font-size: 1.5rem; /* Adjust the size as needed */
-  font-size: 1.5em;
-  color: white;
-  margin-bottom: 10px;
-  line-height: 1.5;
-  font-family: "lato";
-}
-
-.tariff-card .price {
-  font-size: 0.85em;
-  color: #fff;
+  font-size: 1.4rem;
+  margin: 0 0 15px 0;
   font-weight: 700;
-  margin: 15px 0;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.tariff-card .card-description {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.price-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.currency-symbol {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.main-price {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1;
+  margin: 0 5px;
+}
+
+.price-period {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+/* Card Body - White section */
+.tariff-card-body {
+  padding: 30px 25px;
+  background: white;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pricing-details {
+  margin-bottom: 20px;
 }
 
 .disprice {
   font-family: "Poppins", sans-serif;
-  font-weight: bold; /* Makes the text bold */
-  font-size: 1.5rem; /* Adjust the size as needed */
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #2c3e50;
+  margin-bottom: 8px;
+  text-align: center;
 }
 
+.original-price {
+  font-size: 1rem;
+  color: #7f8c8d;
+  text-decoration: line-through;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.saving {
+  font-size: 0.9rem;
+  color: #27ae60;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #e0e0e0, transparent);
+  margin: 20px 0;
+}
+
+/* Feature list styling (for future use) */
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.feature-item {
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  color: #2c3e50;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #f8f9fa;
+}
+
+.feature-item:last-child {
+  border-bottom: none;
+}
+
+.feature-icon {
+  margin-right: 10px;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feature-icon.included {
+  color: #27ae60;
+}
+
+.feature-icon.excluded {
+  color: #e74c3c;
+}
+
+/* Buy Button */
 .buy-button {
-  background: linear-gradient(to right, #28a745, #32cd32);
+  background: linear-gradient(135deg, #27ae60, #2ecc71);
   color: white;
   border: none;
-  padding: 12px 20px;
-  font-size: 1.1em;
+  padding: 15px 25px;
+  font-size: 1.1rem;
   font-weight: 600;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   margin-top: auto;
+  box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
 }
 
 .buy-button:hover {
-  background: linear-gradient(to right, #32cd32, #28a745);
-  transform: translateY(-3px);
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+}
+
+.buy-button.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: #95a5a6;
+  box-shadow: none;
+}
+
+.buy-button.disabled:hover {
+  transform: none;
+  background: #95a5a6;
+}
+
+/* Responsive styles */
+@media (max-width: 1100px) {
+  .pricing-tables-container {
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pricing-header {
+    font-size: 2rem;
+  }
+
+  .tariff-card {
+    width: 100%;
+    max-width: 350px;
+  }
 }
 
 @media (max-width: 1024px) {
   .tariff-card {
-    width: 49%;
-    height: auto;
+    width: 48%;
+    min-width: 280px;
   }
 
   .tariff-card h2 {
-    font-size: 1.4em;
+    font-size: 1.3rem;
   }
 
-  .tariff-card p {
-    font-size: 1em;
-  }
-
-  .tariff-card .price {
-    font-size: 0.85em;
+  .main-price {
+    font-size: 2.5rem;
   }
 
   .buy-button {
-    padding: 10px 15px;
-    font-size: 1em;
+    padding: 12px 20px;
+    font-size: 1rem;
   }
 }
 
 @media (max-width: 600px) {
-  /* Main Tariff Page */
   .tariff-page {
-    padding: 20px 10px; /* Reduced padding */
+    padding: 20px 10px;
   }
 
-  /* Membership Section */
   .membership-active,
   .membership-expired {
-    width: 100%; /* Ensure the membership box takes up full width */
+    width: 100%;
     padding: 15px;
-    font-size: 0.9rem; /* Slightly smaller text */
+    font-size: 0.9rem;
   }
 
-  /* Membership Card */
   .membership-card {
-    max-width: 100%; /* Allow the card to take full width on small screens */
+    max-width: 100%;
     padding: 15px;
   }
 
   .membership-title {
-    font-size: 1.5rem; /* Smaller title font size */
+    font-size: 1.5rem;
   }
 
   .info-text {
-    font-size: 0.9rem; /* Slightly smaller info text */
+    font-size: 0.9rem;
   }
 
   .membership-details {
@@ -253,90 +489,89 @@
 
   .membership-label,
   .membership-value {
-    font-size: 0.9rem; /* Adjusted label and value font size */
+    font-size: 0.9rem;
   }
 
-  /* Choose Text */
   .choose-text {
-    font-size: 1.8rem; /* Slightly smaller heading */
+    font-size: 1.8rem;
     margin-bottom: 10px;
   }
 
   .choose-text::after {
-    width: 50px; /* Shortened the line */
+    width: 50px;
   }
 
-  /* Tariff Cards Section */
   .tariff-container {
-    gap: 10px; /* Reduced gap between cards */
+    gap: 20px;
   }
 
-  /* Tariff Cards */
   .tariff-card {
-    width: 100%; /* Full width for small screens */
-    padding: 20px;
-    text-align: left; /* Align text to the left */
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .tariff-card-header {
+    padding: 25px 15px;
   }
 
   .tariff-card h2 {
-    font-size: 1.3em; /* Smaller title */
+    font-size: 1.2rem;
   }
 
-  .tariff-card p {
-    font-size: 1.2em; /* Adjusted text size */
+  .main-price {
+    font-size: 2.2rem;
   }
 
-  .tariff-card .price {
-    font-size: 1em; /* Adjusted price font size */
+  .tariff-card-body {
+    padding: 25px 20px;
+  }
+
+  .disprice {
+    font-size: 1.2rem;
   }
 
   .buy-button {
-    padding: 8px 15px;
-    font-size: 1em; /* Slightly smaller button font */
+    padding: 12px 20px;
+    font-size: 1rem;
   }
 
-  /* Membership Card Hover */
   .tariff-card:hover {
-    transform: none; /* Remove hover effect on small screens for better usability */
-    box-shadow: none; /* Remove shadow */
+    transform: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   }
 
-  /* Responsive Font Size for the Buy Button */
-  .buy-button {
-    padding: 8px 12px;
-    font-size: 0.95em;
-  }
-
-  /* Adjust Tariff Card for Extra Small Screens */
   @media (max-width: 480px) {
-    .tariff-card {
-      width: 100%; /* Ensure the card takes up full width on very small screens */
+    .tariff-card-header {
+      padding: 20px 15px;
     }
 
     .tariff-card h2 {
-      font-size: 1.1em;
+      font-size: 1.1rem;
     }
 
-    .tariff-card p {
-      font-size: 1em;
+    .main-price {
+      font-size: 2rem;
     }
 
-    .tariff-card .price {
-      font-size: 0.75em; /* Slightly larger price font */
+    .tariff-card-body {
+      padding: 20px 15px;
+    }
+
+    .disprice {
+      font-size: 1.1rem;
     }
 
     .buy-button {
-      padding: 6px 10px;
-      font-size: 0.9em;
+      padding: 10px 15px;
+      font-size: 0.95rem;
     }
 
     .choose-text {
-      font-size: 1.6rem; /* Slightly smaller for very small screens */
+      font-size: 1.6rem;
     }
 
     .membership-title {
-      font-size: 1.5rem; /* Adjusted title size for small screens */
+      font-size: 1.4rem;
     }
   }
 }
-

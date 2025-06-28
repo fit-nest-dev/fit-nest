@@ -13,11 +13,9 @@ const TariffPage = () => {
   const [plans, setPlans] = useState([])
   const [loading, setLoading] = useState(false)
   const [loadingplan, setLoadingplan] = useState(false)
-
   const { socket } = useContext(SocketContext)
   const location = useLocation()
   const { Status } = location.state || { Status: "not-valid" }
-  // console.log(Status, "fom location", typeof Status)
 
   const fetchPlans = async () => {
     try {
@@ -49,26 +47,22 @@ const TariffPage = () => {
   }
 
   function parsePrice(str) {
-  return parseFloat(str.replace(/[^0-9.]/g, '').replace(',', ''));
-}
+    return Number.parseFloat(str.replace(/[^0-9.]/g, "").replace(",", ""))
+  }
 
   const getPlanPricing = (plan) => {
     const price = parsePrice(plan.price)
     const discountedPrice = parsePrice(plan.discountedPrice)
 
-  
     const data = {
       originalPrice: `₹${price.toLocaleString("en-IN")}/-`,
       buyAtPrice: `₹${discountedPrice.toLocaleString("en-IN")}/-`,
       saving: price - discountedPrice,
       discountPercentage: Math.round(((price - discountedPrice) / price) * 100),
     }
-
-    return data 
+    return data
   }
 
-
-  // ... keep existing code (useEffect hooks for fetching data, scrolling, and socket events)
   useEffect(() => {
     FetchUserById()
   }, [])
@@ -81,10 +75,12 @@ const TariffPage = () => {
     socket.on("MembershipPlanChanges", (change) => {
       fetchPlans()
     })
+
     socket.on("UserChanges", (change) => {
       localStorage.setItem("gym-user", JSON.stringify(change))
       FetchUserById()
     })
+
     return () => {
       socket.off("MembershipPlanChanges")
       socket.off("UserChanges")
@@ -94,9 +90,6 @@ const TariffPage = () => {
   useEffect(() => {
     fetchPlans()
   }, [])
-
-
- 
 
   const handleBuyNow = (plan) => {
     if (!Authuser && Status === "null") {
@@ -130,7 +123,6 @@ const TariffPage = () => {
     )
   }
 
-  
   return (
     <div className="tariff-page relative min-h-screen w-full overflow-hidden bg-black">
       <div className="absolute inset-0">
@@ -170,6 +162,7 @@ const TariffPage = () => {
           ></div>
         </div>
       </div>
+
       <div className="relative z-10 flex flex-col items-center justify-center p-8">
         {Authuser?.membership_details?.status?.toLowerCase() === "active" && (
           <div className="membership-active">
@@ -232,27 +225,41 @@ const TariffPage = () => {
           ) : (
             plans.map((plan, index) => {
               const pricingDetails = getPlanPricing(plan)
-
               return (
-                <div key={index} className="tariff-card hover-scale">
-                  <h2 className="card-title">{plan.title}</h2>
-                  <p className="card-description">{plan.description}</p>
-                  <div className="divider"></div>
-                  <p className="disprice font-bold text-2xl font-poppins">Buy at {pricingDetails.buyAtPrice}</p>
-                  <p className="price">Original: {pricingDetails.originalPrice}</p>
-                  {pricingDetails.saving > 0 && (
-                    <p className="saving text-green-400 text-sm mt-1">
-                      Save {pricingDetails.discountPercentage}%  (₹{pricingDetails.saving.toLocaleString("en-IN")})
-                    </p>
-                  )}
-                  <div className="divider"></div>
-                  <button
-                    onClick={() => handleBuyNow(plan)}
-                    className={`buy-button ${Authuser?.membership_details?.status === "Active" ? "disabled" : ""}`}
-                    disabled={Authuser?.membership_details?.status === "Active"}
-                  >
-                    Buy Now
-                  </button>
+                <div key={index} className="tariff-card">
+                  {/* Colored Header Section */}
+                  <div className="tariff-card-header">
+                    <h2>{plan.title}</h2>
+                    <p className="card-description">{plan.description}</p>
+                    <div className="price-display">
+                      <span className="currency-symbol">₹</span>
+                      <span className="main-price">{parsePrice(plan.discountedPrice).toLocaleString("en-IN")}</span>
+                      <span className="price-period">/month</span>
+                    </div>
+                  </div>
+
+                  {/* White Body Section */}
+                  <div className="tariff-card-body">
+                    <div className="pricing-details">
+                      <div className="disprice">Buy at {pricingDetails.buyAtPrice}</div>
+                      <div className="original-price">Original: {pricingDetails.originalPrice}</div>
+                      {pricingDetails.saving > 0 && (
+                        <div className="saving">
+                          Save {pricingDetails.discountPercentage}% (₹{pricingDetails.saving.toLocaleString("en-IN")})
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="divider"></div>
+
+                    <button
+                      onClick={() => handleBuyNow(plan)}
+                      className={`buy-button ${Authuser?.membership_details?.status === "Active" ? "disabled" : ""}`}
+                      disabled={Authuser?.membership_details?.status === "Active"}
+                    >
+                      Buy Now
+                    </button>
+                  </div>
                 </div>
               )
             })
